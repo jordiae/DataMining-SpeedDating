@@ -1,3 +1,11 @@
+#Install packages
+#Little test
+install.packages("BaylorEdPsych")
+library(BaylorEdPsych)
+install.packages("mvnmle")
+library(mvnmle)
+installed.packages("cluster")
+library(cluster)
 # 1 - Building the original data matrix and introducing the data into the pre-processing tool
 # NAs can be both 'NA' or empty, in this dataset
 original_data <-read.csv("Speed.csv", header=TRUE,na.strings=c("","NA"))
@@ -265,6 +273,65 @@ data_pending_missing_imputation  <- selected_columns_data_floor[ selected_vars_n
 # tuition and mn_sat. structural -> 0
 data_pending_missing_imputation$tuition[is.na(data_pending_missing_imputation$tuition)] <- 0
 data_pending_missing_imputation$mn_sat[is.na(data_pending_missing_imputation$mn_sat)] <- 0
+
+
+littleTest <- LittleMCAR(data_pending_missing_imputation)
+littleTest$amount.missing
+#The rows with the most number of NA have 17 NA
+#Can we erase this rows with more than 15 NA?
+littleTest$data$DataSet80
+
+# MIMMI algorithm
+subsetMIMI = data_pending_missing_imputation[,c('int_corr', 'match', 'age', 'age_o')]
+
+# Creates dissimilarity matrix
+dissimMatrix <- daisy(subsetMIMI, metric = "gower", stand=TRUE)
+
+# Creates distance matrix and hierarchical tree
+distMatrix<-dissimMatrix^2
+
+hierarchicalTree <- hclust(distMatrix,method="ward.D2")  
+
+plot(hierarchicalTree)
+
+######################################
+# Looking at the plot we choose to split the dataset in 7 clusters.
+k<-7
+cutTree <- cutree(hierarchicalTree, k=k)
+
+# We add the cluster number into the dataset 
+data_pending_missing_imputation$CLUSTER <- as.factor(cutTree)
+
+# Computation and assignation of the variable means for each cluster
+
+for (i in 1:k) {
+  for (variableName in colnames(data)) {
+    if (!is.factor(data[,variableName])) {
+      data[data$CLUSTER == i & is.na(data[,variableName]), variableName] <- mean(data[data$CLUSTER == i & !is.na(data[,variableName]), variableName]) 
+    }
+  }
+}
+
+# Deletes cluster column
+data_pending_missing_imputation <- subset(data_pending_missing_imputation, select = -c(CLUSTER))
+
+# Detects the number of NA in each column
+percentatgesNA = data.frame(matrix(0, length(data), 3))
+names(percentatgesNA) = c("Variable", "Factor", "Percentage")
+
+for (i in 1:ncol(data_pending_missing_imputation)){
+  percentatgesNA[i,]$Variable <- names(data_pending_missing_imputation)[i]
+  
+  percentatgesNA[i,]$Factor <- is.factor(data_pending_missing_imputation[,i])
+  
+  numNA <- sum(is.na(data_pending_missing_imputation[i]))
+  percentatgesNA[i,]$Percentage <- numNA/nrow(data_pending_missing_imputation) * 100
+}
+
+# Clears workspace but data
+rm(list=setdiff(ls(), "data"))
+
+
 
 # NEW VARIABLES
 # We are going to create the var "difference of age"

@@ -163,6 +163,7 @@ na_count_selected
 
 #income 48.72% missing, no apparent outliers
 
+
 #goal 0.96% missing no outliners
 
 #date 1.44% missing no outliners
@@ -333,7 +334,9 @@ data_pending_missing_imputation <- filter(data_pending_missing_imputation, !is.n
 # It might be also good to remove all rows that miss more than one attribute of these. After that a Imputation for the 
 # single values can start.
 # One option to tackle the single missing values could be taking the median of the 5 other attributes in order to 
+subsetMIMI = data_pending_missing_imputation[,c('int_corr', 'attr_o', 'age', 'age_o')]
 ####################Still to implement
+# 
 
 # intel_o 2.55% missing
 
@@ -358,7 +361,7 @@ data_pending_missing_imputation <- filter(data_pending_missing_imputation, !is.n
 # There are at least two options: 
 # 1.) Cutting out all the lines
 # 2.) Assuming that this person didn't want to answer this question
-#income 48.72% missing, no apparent outliers
+# income 48.72% missing, no apparent outliers
 # Different approaches: taking the Mean of all other incomes(might bias the analysis)
 # Adding 0 as salary just to analyse if there is an influence weather somebody wanted to say it or not
 # Since more than half of the people didn't want to share their income it might be something interesting to analyse
@@ -391,7 +394,7 @@ littleTest$amount.missing
 littleTest$data$DataSet80
 
 # MIMMI algorithm
-subsetMIMI = data_pending_missing_imputation[,c('int_corr', 'match', 'age', 'age_o')]
+subsetMIMI = data_pending_missing_imputation[,c('int_corr', 'attr_o', 'age', 'age_o')]
 
 # Creates dissimilarity matrix
 dissimMatrix <- daisy(subsetMIMI, metric = "gower", stand=TRUE)
@@ -437,11 +440,28 @@ for (i in 1:ncol(data_pending_missing_imputation)){
   percentatgesNA[i,]$Percentage <- numNA/nrow(data_pending_missing_imputation) * 100
 }
 
+
+
+
+
+# IMPUTATION By THE 1NN
+
+library(class)
+
+# FOR EVERY INDIVIDUAL WITH INGRESSOS MISSING WE LOOK FOR THE MOST SIMILAR INDIVIDUAL ACCORDING THE REMAINING VARIABLES AND WE COPY THE VALUE OF INGRESSOS ON THE FIRST 
+income <-data_pending_missing_imputation$income
+aux = data_pending_missing_imputation[,-29]
+dim(aux)
+aux1 = aux[!is.na(income),]
+dim(aux1)
+aux2 = aux[is.na(income),]
+dim(aux2)
+knn.ing = knn(aux1,aux2,income[!is.na(income)])   
+# NEITHER AUX1, AUX2 CAN CONTAIN NAs)
+data_pending_missing_imputation$income[is.na(income)] = knn.ing
+
 # Clears workspace but data
 rm(list=setdiff(ls(), "data"))
-
-
-
 # NEW VARIABLES
 # We are going to create the var "difference of age"
 # Something like data$diff_age <- abs(data$age - data$age_o)

@@ -6,6 +6,8 @@ install.packages("mvnmle")
 library(mvnmle)
 installed.packages("cluster")
 library(cluster)
+installed.packages("dplyr")
+library("dplyr")
 # 1 - Building the original data matrix and introducing the data into the pre-processing tool
 # NAs can be both 'NA' or empty, in this dataset
 original_data <-read.csv("Speed.csv", header=TRUE,na.strings=c("","NA"))
@@ -130,7 +132,8 @@ na_count_selected
 # order: ok.
 # pid: (id)
 # match: same as gender.
-# int_corr: 1.91% missing , no outliers in boxplot.
+# int_corr: 1.91% missing , no outliers in boxplot
+
 # samerace: same as gender.
 # age_o: 0.53% missing, 3 values don't fit in the boxplot but are "real" ages
 # race_o: 0.53% missing, it seems it has no outliers
@@ -267,6 +270,112 @@ data_pending_missing_imputation  <- selected_columns_data_floor[ selected_vars_n
 
 
 # MISSING IMPUTATION
+
+# int_corr: 1.91% missing , no outliers in boxplot.in
+rowswithmissingint_corr<-filter(.data = data_pending_missing_imputation,is.na(int_corr))
+summary(rowswithmissingint_corr)
+# After looking at all the rows with missing Data it can be seen, that there are three persons, that are responsible for the missing Values:
+# Person 28 is involved in the first 32 rows with missing Values(the probablity is high, that this person didn't fill the Questionare right)
+# Solving suggestion: Remove all rows for this person(filling the data would need a lot of assumptions about the Person and bias our results)
+
+# The similar problem accurs for Person 58 and 59.
+# cutting all the rows where they accur might be the best solution (Discussion)
+# These persons also didn't answer many other columns, so in my opinion its the best way if we cut them
+
+# age_o: 0.53% missing, 3 values don't fit in the boxplot but are "real" ages
+# All persons that didn't talk about their age are 58 and 59 so if we cut them there won't be any missing values left 
+
+# race_o: 0.53% missing, it seems it has no outliers
+# Same as age_o Person 58 and 59 are responsible for the missing values
+# pf_o_att 0.96% missing. 
+# For all Values that miss in pf_o_att also by cutting Person 28,58,59 all missing Values will be cut out of the data set
+# dec_o: same as gender
+
+# attr_o 1.28% missing
+# Again some missing Values are related to 58 and 59 since we want to focus on other values now, the rows with pid or iid will be cut out before continuing with the preprocessing
+data_pending_missing_imputation <- filter(data_pending_missing_imputation, pid != 28 & iid != 28 & pid != 58& iid != 58 & pid != 59& iid != 59)
+
+# After that, there are still two types of missing values for the following attributes. Rows with single missing Values and 
+# rows with all of them missing. I would suggest cutting out the rows with all the values missing, because imputation could lead to 
+# a big bias in our test. If there are no values the questionare was probably not answered.
+
+data_pending_missing_imputation <- filter(data_pending_missing_imputation, !is.na(attr_o)| !is.na(sinc_o)| !is.na(intel_o)| !is.na(fun_o)| !is.na(amb_o)| !is.na(shar_o))
+# After that there are only 4 rows left with missing attr_o. For this rows this is the only missing value. The possibilities are now:
+# 1.) Remove these rows (would not suggest because if we will lose the data)
+# 2.) Impute values by expert opinion (could be a good shot, but we aren't experts and cannot access expert opinions right now)
+# 3.) Impute values with the mean of the other 5 values
+# 4.) Impute values with the mean of all attr_o values
+# 5.) Impute values with the median of all attr_o values related to that person
+# I think the most precise Imputation would be the median of the attr_o values related to that person
+# Filter the data so only the rows with the specific iid are left:
+iid10 <- filter(data_pending_missing_imputation, iid == 10)
+# Median = 8
+# set value for this row 8
+data_pending_missing_imputation[96,"attr_o"] <- 8
+iid22 <- filter(data_pending_missing_imputation, iid == 22)
+# Median = 7
+# set value for this row 7
+data_pending_missing_imputation[224,"attr_o"] <- 7
+iid37 <- filter(data_pending_missing_imputation, iid == 37)
+# Median = 7
+# set value for this row 7
+data_pending_missing_imputation[447,"attr_o"] <- 7
+iid104 <- filter(data_pending_missing_imputation, iid == 104)
+# Median = 10
+# set value for this row 10
+data_pending_missing_imputation[1440,"attr_o"] <- 10
+#sinc_o 2.34% missing
+# Again, there are some columns without any of the remaining 5 Values in there, so firep is to cut these out of the dataset, 
+data_pending_missing_imputation <- filter(data_pending_missing_imputation, !is.na(sinc_o)| !is.na(intel_o)| !is.na(fun_o)|!is.na(amb_o) |!is.na(shar_o))
+# after doing that there are still 32 NAs left over
+# As an efficient solution taking the median over the values is one option. Again we are facing a difficult decicion
+# For now the median of all the missing values
+# It might be also good to remove all rows that miss more than one attribute of these. After that a Imputation for the 
+# single values can start.
+# One option to tackle the single missing values could be taking the median of the 5 other attributes in order to 
+####################Still to implement
+
+# intel_o 2.55% missing
+
+# fun_o 3.21 % missing
+# amb_o 8.9% missing
+# shar_o 13.48% missing
+
+
+# age: 13.48% missing, no outliers (same as age_o)
+# field_cd: 1.04% missing, no outliers apparently
+# Solution: Coding the NA as not given answer and add this category
+
+# mn_sat: 62.5% missing, apparently 2 potential outliers but they are not; they are "real" SAT # scores
+
+#tuition: 58.0 %missing, no apparent outliers
+# Set all of the NA to "0" because they probably didn't attend college
+
+#race 0.53% missing no outliers apparently
+
+#imprace 0.96% missing,  
+# One person didnt fill out how important the race attribute is to itself 
+# There are at least two options: 
+# 1.) Cutting out all the lines
+# 2.) Assuming that this person didn't want to answer this question
+#income 48.72% missing, no apparent outliers
+# Different approaches: taking the Mean of all other incomes(might bias the analysis)
+# Adding 0 as salary just to analyse if there is an influence weather somebody wanted to say it or not
+# Since more than half of the people didn't want to share their income it might be something interesting to analyse
+############ Implementation missing
+
+#goal 0.96% missing no outliners
+# Already fixed by previous cut rows
+
+#date 1.44% missing no outliners
+# Again the missing value is only refering to one person 413 maybe we could estimate a value either by analysing this specific person
+# or by taking the mean or the median of all other persons or of all other female person
+
+#go_out 0.96% missing no outliners
+# fixed by the previous cutting of rows
+# like 25 still missing
+# The missing Values seem to be random, therefore we could maybe use a prediction model like linear combination or something like this
+
 
 # age: structural
 

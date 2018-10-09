@@ -2,16 +2,18 @@
 #Install packages
 #Little test
 install.packages("BaylorEdPsych")
-install.packages("dplyr")
 install.packages("plyr")
+install.packages("dplyr")
+
 library(BaylorEdPsych)
 install.packages("mvnmle")
 library(mvnmle)
 installed.packages("cluster")
 library(cluster)
 installed.packages("dplyr")
-library("dplyr")
 library("plyr")
+library("dplyr")
+
 # 1 - Building the original data matrix and introducing the data into the pre-processing tool
 # NAs can be both 'NA' or empty, in this dataset
 original_data <-read.csv("Speed.csv", header=TRUE,na.strings=c("","NA"))
@@ -229,59 +231,59 @@ data_pending_missing_imputation <- data_pending_missing_imputation[data_pending_
 
 
 #
-# # int_corr: 1.91% missing , no outliers in boxplot.in
-# rowswithmissingint_corr<-filter(.data = data_pending_missing_imputation,is.na(int_corr))
-# summary(rowswithmissingint_corr)
-# # After looking at all the rows with missing Data it can be seen, that there are three persons, that are responsible for the missing Values:
-# # Person 28 is involved in the first 32 rows with missing Values(the probablity is high, that this person didn't fill the Questionare right)
-# # Solving suggestion: Remove all rows for this person(filling the data would need a lot of assumptions about the Person and bias our results)
-#
-# # The similar problem accurs for Person 58 and 59.
-# # cutting all the rows where they accur might be the best solution (Discussion)
-# # These persons also didn't answer many other columns, so in my opinion its the best way if we cut them
-#
-# # age_o: 0.53% missing, 3 values don't fit in the boxplot but are "real" ages
-# # All persons that didn't talk about their age are 58 and 59 so if we cut them there won't be any missing values left
-#
-# # race_o: 0.53% missing, it seems it has no outliers
-# # Same as age_o Person 58 and 59 are responsible for the missing values
-# # pf_o_att 0.96% missing.
-# # For all Values that miss in pf_o_att also by cutting Person 28,58,59 all missing Values will be cut out of the data set
-# # dec_o: same as gender
-#
-# # attr_o 1.28% missing
-# # Again some missing Values are related to 58 and 59 since we want to focus on other values now, the rows with pid or iid will be cut out before continuing with the preprocessing
-# data_pending_missing_imputation <- as.data.frame(filter(data_pending_missing_imputation, data_pending_missing_imputation$pid != 28 & data_pending_missing_imputation$iid != 28 & data_pending_missing_imputation$pid != 58& data_pending_missing_imputation$iid != 58 &data_pending_missing_imputation$pid != 59& data_pending_missing_imputation$iid != 59))
-#
-# # After that, there are still two types of missing values for the following attributes. Rows with single missing Values and
-# # rows with all of them missing. I would suggest cutting out the rows with all the values missing, because imputation could lead to
-# # a big bias in our test. If there are no values the questionare was probably not answered.
-#
-# data_pending_missing_imputation <-  as.data.frame(filter(data_pending_missing_imputation, !is.na(data_pending_missing_imputation$attr_o)| !is.na(data_pending_missing_imputation$sinc_o)| !is.na(data_pending_missing_imputation$intel_o)| !is.na(data_pending_missing_imputation$fun_o)| !is.na(data_pending_missing_imputation$amb_o)| !is.na(data_pending_missing_imputation$shar_o)))
-# # After that there are only 4 rows left with missing attr_o. For this rows this is the only missing value. The possibilities are now:
-# # 1.) Remove these rows (would not suggest because if we will lose the data)
-# # 2.) Impute values by expert opinion (could be a good shot, but we aren't experts and cannot access expert opinions right now)
-# # 3.) Impute values with the mean of the other 5 values
-# # 4.) Impute values with the mean of all attr_o values
-# # 5.) Impute values with the median of all attr_o values related to that person
-# # I think the most precise Imputation would be the median of the attr_o values related to that person
-# # Filter the data so only the rows with the specific iid are left:
-# iid10 <- filter(data_pending_missing_imputation, data_pending_missing_imputation$iid == 10)
-# # Median = 8
-# # set value for this row 8
-# data_pending_missing_imputation[96,"attr_o"] <- 8
-# iid22 <- filter(data_pending_missing_imputation,  data_pending_missing_imputation$iid == 22)
-# # Median = 7
-# # set value for this row 7
-# data_pending_missing_imputation[224,"attr_o"] <- 7
-# iid37 <- filter(data_pending_missing_imputation,  data_pending_missing_imputation$iid == 37)
-# # Median = 7
-# # set value for this row 7
-# data_pending_missing_imputation[447,"attr_o"] <- 7
-# iid104 <- filter(data_pending_missing_imputation,  data_pending_missing_imputation$iid == 104)
-# # Median = 10
-# # set value for this row 10
-# data_pending_missing_imputation[1440,"attr_o"] <- 10
+# int_corr: 1.91% missing , no outliers in boxplot.in
+rowswithmissingint_corr<-filter(.data = data_pending_missing_imputation,is.na(int_corr))
+summary(rowswithmissingint_corr)
+# After looking at all the rows with missing Data it can be seen, that there are three persons, that are responsible for the missing Values:
+# Person 28 is involved in the first 32 rows with missing Values(the probablity is high, that this person didn't fill the Questionare right)
+# Solving suggestion: Remove all rows for this person(filling the data would need a lot of assumptions about the Person and bias our results)
+
+# The similar problem accurs for Person 58 and 59.
+# cutting all the rows where they accur might be the best solution (Discussion)
+# These persons also didn't answer many other columns, so in my opinion its the best way if we cut them
+
+# age_o: 0.53% missing, 3 values don't fit in the boxplot but are "real" ages
+# All persons that didn't talk about their age are 58 and 59 so if we cut them there won't be any missing values left
+
+# race_o: 0.53% missing, it seems it has no outliers
+# Same as age_o Person 58 and 59 are responsible for the missing values
+# pf_o_att 0.96% missing.
+# For all Values that miss in pf_o_att also by cutting Person 28,58,59 all missing Values will be cut out of the data set
+# dec_o: same as gender
+
+# attr_o 1.28% missing
+# Again some missing Values are related to 58 and 59 since we want to focus on other values now, the rows with pid or iid will be cut out before continuing with the preprocessing
+data_pending_missing_imputation <- as.data.frame(filter(data_pending_missing_imputation, data_pending_missing_imputation$pid != 28 & data_pending_missing_imputation$iid != 28 & data_pending_missing_imputation$pid != 58& data_pending_missing_imputation$iid != 58 &data_pending_missing_imputation$pid != 59& data_pending_missing_imputation$iid != 59))
+
+# After that, there are still two types of missing values for the following attributes. Rows with single missing Values and
+# rows with all of them missing. I would suggest cutting out the rows with all the values missing, because imputation could lead to
+# a big bias in our test. If there are no values the questionare was probably not answered.
+
+data_pending_missing_imputation <-  as.data.frame(filter(data_pending_missing_imputation, !is.na(data_pending_missing_imputation$attr_o)| !is.na(data_pending_missing_imputation$sinc_o)| !is.na(data_pending_missing_imputation$intel_o)| !is.na(data_pending_missing_imputation$fun_o)| !is.na(data_pending_missing_imputation$amb_o)| !is.na(data_pending_missing_imputation$shar_o)))
+# After that there are only 4 rows left with missing attr_o. For this rows this is the only missing value. The possibilities are now:
+# 1.) Remove these rows (would not suggest because if we will lose the data)
+# 2.) Impute values by expert opinion (could be a good shot, but we aren't experts and cannot access expert opinions right now)
+# 3.) Impute values with the mean of the other 5 values
+# 4.) Impute values with the mean of all attr_o values
+# 5.) Impute values with the median of all attr_o values related to that person
+# I think the most precise Imputation would be the median of the attr_o values related to that person
+# Filter the data so only the rows with the specific iid are left:
+iid10 <- filter(data_pending_missing_imputation, data_pending_missing_imputation$iid == 10)
+# Median = 8
+# set value for this row 8
+data_pending_missing_imputation[96,"attr_o"] <- 8
+iid22 <- filter(data_pending_missing_imputation,  data_pending_missing_imputation$iid == 22)
+# Median = 7
+# set value for this row 7
+data_pending_missing_imputation[224,"attr_o"] <- 7
+iid37 <- filter(data_pending_missing_imputation,  data_pending_missing_imputation$iid == 37)
+# Median = 7
+# set value for this row 7
+data_pending_missing_imputation[447,"attr_o"] <- 7
+iid104 <- filter(data_pending_missing_imputation,  data_pending_missing_imputation$iid == 104)
+# Median = 10
+# set value for this row 10
+data_pending_missing_imputation[1440,"attr_o"] <- 10
 # #sinc_o 2.34% missing
 # # Again, there are some columns without any of the remaining 5 Values in there, so firep is to cut these out of the dataset,
 # data_pending_missing_imputation <- filter(data_pending_missing_imputation, !is.na(sinc_o)| !is.na(intel_o)| !is.na(fun_o)|!is.na(amb_o) |!is.na(shar_o))

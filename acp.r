@@ -32,7 +32,7 @@ barplot(pinerEix)
 
 #Cummulated Inertia in subspaces, from first principal component to the 24th dimension subspace
 png(paste(path,"a-cummulated-inertia-barplot.png",sep = ""))
-barplot(100*cumsum(pc1$sdev[1:dim(dd_numeric)[2]]^2)/dim(dd_numeric)[2])
+barplot(100*cumsum(pc1$sdev[1:dim(dd_numeric)[2]]^2)/dim(dd_numeric)[2],main="Cummulated Inertia",xlab = "Principal components",ylab = "Cummulated inertia (%)",names.arg = 1:dim(dd_numeric)[2])
 dev.off()
 percInerAccum<-100*cumsum(pc1$sdev[1:dim(dd_numeric)[2]]^2)/dim(dd_numeric)[2]
 percInerAccum
@@ -58,7 +58,7 @@ for (axis_h in 1:(nd-1)) {
     eje1<-axis_h
     eje2<-axis_v
     
-    png(paste(path,axis_name,"b-1-individulals.png",sep = ""))
+    png(paste(path,axis_name,"b-1-individuals.png",sep = ""))
     
     plot(Psi[,eje1],Psi[,eje2])
     text(Psi[,eje1],Psi[,eje2],labels=iden, cex=0.5)
@@ -82,7 +82,7 @@ for (axis_h in 1:(nd-1)) {
     X<-Phi[,eje1]
     Y<-Phi[,eje2]
     png(paste(path,axis_name,"b-2-proj-all-nums.png",sep = ""))
-    plot(Psi[,eje1],Psi[,eje2],type="n")
+    plot(Psi[,eje1],Psi[,eje2],type="n",main="Projection of numeric variables",xlab=paste("Component",axis_h),ylab=paste("Component",axis_v))
     axis(side=1, pos= 0, labels = F)
     axis(side=3, pos= 0, labels = F)
     axis(side=2, pos= 0, labels = F)
@@ -94,13 +94,14 @@ for (axis_h in 1:(nd-1)) {
     
     #zooms
     png(paste(path,axis_name,"b-2-zooms-proj-all-nums.png",sep = ""))
-    plot(Psi[,eje1],Psi[,eje2],type="n",xlim=c(min(X,0),max(X,0)))
+    plot(Psi[,eje1],Psi[,eje2],type="n",xlim=c(min(X,0),max(X,0)),ylim=c(min(Y,0),max(Y,0)),main="Zoomed projection of numeric variables",xlab=paste("Component",axis_h),ylab=paste("Component",axis_v))
     axis(side=1, pos= 0, labels = F)
     axis(side=3, pos= 0, labels = F)
     axis(side=2, pos= 0, labels = F)
     axis(side=4, pos= 0, labels = F)
     arrows(ze, ze, X, Y, length = 0.07,col="blue")
-    text(X,Y,labels=etiq,col="darkblue", cex=0.7)
+    text(X,Y,labels=etiq,col="darkblue", cex=1)
+
     dev.off()
     
     
@@ -109,7 +110,7 @@ for (axis_h in 1:(nd-1)) {
     #representing the individual anymore
     
     png(paste(path,axis_name,"b-2-match.png",sep = ""))
-    plot(Psi[,eje1],Psi[,eje2],type="n")
+    plot(Psi[,eje1],Psi[,eje2],type="n",main="Levels of Match",xlab=paste("Component",axis_h),ylab=paste("Component",axis_v))
     axis(side=1, pos= 0, labels = F, col="cyan")
     axis(side=3, pos= 0, labels = F, col="cyan")
     axis(side=2, pos= 0, labels = F, col="cyan")
@@ -125,7 +126,7 @@ for (axis_h in 1:(nd-1)) {
     dev.off()
     
     png(paste(path,axis_name,"b-2-dec.png",sep = ""))
-    plot(Psi[,eje1],Psi[,eje2],type="n")
+    plot(Psi[,eje1],Psi[,eje2],type="n",main="Levels of Dec",xlab=paste("Component",axis_h),ylab=paste("Component",axis_v))
     axis(side=1, pos= 0, labels = F, col="cyan")
     axis(side=3, pos= 0, labels = F, col="cyan")
     axis(side=2, pos= 0, labels = F, col="cyan")
@@ -141,7 +142,7 @@ for (axis_h in 1:(nd-1)) {
     dev.off()
     
     png(paste(path,axis_name,"b-2-dec_o.png",sep = ""))
-    plot(Psi[,eje1],Psi[,eje2],type="n")
+    plot(Psi[,eje1],Psi[,eje2],type="n",main="Levels of Dec_o",xlab=paste("Component",axis_h),ylab=paste("Component",axis_v))
     axis(side=1, pos= 0, labels = F, col="cyan")
     axis(side=3, pos= 0, labels = F, col="cyan")
     axis(side=2, pos= 0, labels = F, col="cyan")
@@ -157,6 +158,13 @@ for (axis_h in 1:(nd-1)) {
     dev.off()
     
     
+    #all qualitative together
+    png(paste(path,axis_name,"b-2-all-qual-tog.png",sep = ""))
+    plot(Psi[,eje1],Psi[,eje2],type="n",main="All qualitative variables projected together",xlab=paste("Component",axis_h),ylab=paste("Component",axis_v))
+    axis(side=1, pos= 0, labels = F, col="cyan")
+    axis(side=3, pos= 0, labels = F, col="cyan")
+    axis(side=2, pos= 0, labels = F, col="cyan")
+    axis(side=4, pos= 0, labels = F, col="cyan")
     
     
     
@@ -189,13 +197,15 @@ for (axis_h in 1:(nd-1)) {
       text(fdic1,fdic2,labels=levels(dd[,k]),col=seguentColor, cex=0.6)
       c<-c+1
     }
-    legend("bottomleft",names(dd)[dcat],pch=1,col=colors, cex=0.6)
+    legend("bottomleft",dcat,pch=1,col=colors, cex=0.6)
+    
+    dev.off()
     
     #determine zoom level
     #use the scale factor or not depending on the position of centroids
     # ES UN FACTOR D'ESCALA PER DIBUIXAR LES FLETXES MES VISIBLES EN EL GRAFIC
     fm = round(max(abs(Psi[,1])))
-    #  fm=20
+    #fm=40
     
     #scale the projected variables
     #X<-fm*U[,eje1]
@@ -203,9 +213,11 @@ for (axis_h in 1:(nd-1)) {
     X<-fm*Psi[,eje1]
     Y<-fm*Psi[,eje2]
     
-    png(paste(path,axis_name,"b-2-all_cat.png",sep = ""))
+   
+    
+    png(paste(path,axis_name,"b-2-num-background.png",sep = ""))
     #represent numerical variables in background
-    plot(Psi[,eje1],Psi[,eje2],type="n",xlim=c(-1,1), ylim=c(-3,1))
+    plot(Psi[,eje1],Psi[,eje2],type="n",xlim=c(-1,1), ylim=c(-3,1),main="All vars projected together, numeric vars in background",xlab=paste("Component",axis_h),ylab=paste("Component",axis_v))
     #plot(X,Y,type="none",xlim=c(min(X,0),max(X,0)))
     axis(side=1, pos= 0, labels = F, col="cyan")
     axis(side=3, pos= 0, labels = F, col="cyan")
@@ -228,7 +240,7 @@ for (axis_h in 1:(nd-1)) {
       text(fdic1,fdic2,labels=levels(dd[,k]),col=seguentColor, cex=0.6)
       c<-c+1
     }
-    legend("bottomleft",names(dd)[dcat],pch=1,col=colors, cex=0.6)
+    legend("bottomleft",dcat,pch=1,col=colors, cex=0.6)
     
     
     #add ordinal qualitative variables. Ensure ordering is the correct
@@ -296,7 +308,7 @@ for (axis_h in 1:(nd-1)) {
     dev.off()
     # DEC
     varcat=dd[,"dec"]
-    png(paste(path,axis_name,"b-2-match-dec-proj.png",sep = ""))
+    png(paste(path,axis_name,"b-2-dec-proj.png",sep = ""))
     plot(Psi[,1],Psi[,2],col=varcat)
     axis(side=1, pos= 0, labels = F, col="darkgray")
     axis(side=3, pos= 0, labels = F, col="darkgray")
@@ -314,7 +326,7 @@ for (axis_h in 1:(nd-1)) {
     
     # DEC_O
     varcat=dd[,"dec_o"]
-    png(paste(path,axis_name,"b-2-match-ill-dec-o.png",sep = ""))
+    png(paste(path,axis_name,"b-2-ill-dec-o.png",sep = ""))
     plot(Psi[,1],Psi[,2],col=varcat)
     axis(side=1, pos= 0, labels = F, col="darkgray")
     axis(side=3, pos= 0, labels = F, col="darkgray")
@@ -331,4 +343,5 @@ for (axis_h in 1:(nd-1)) {
     dev.off()
   }
 }
+
 

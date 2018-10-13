@@ -32,7 +32,7 @@ barplot(pinerEix)
 
 #Cummulated Inertia in subspaces, from first principal component to the 24th dimension subspace
 png(paste(path,"a-cummulated-inertia-barplot.png",sep = ""))
-barplot(100*cumsum(pc1$sdev[1:dim(dd_numeric)[2]]^2)/dim(dd_numeric)[2],main="Cummulated Inertia",xlab = "Principal components",ylab = "Cummulated inertia (%)",names.arg = 1:dim(dd_numeric)[2])
+barplot(100*cumsum(pc1$sdev[1:dim(dd_numeric)[2]]^2)/dim(dd_numeric)[2],main="Accumulated Inertia",xlab = "Principal components",ylab = "Accumulated inertia (%)",names.arg = 1:dim(dd_numeric)[2])
 dev.off()
 percInerAccum<-100*cumsum(pc1$sdev[1:dim(dd_numeric)[2]]^2)/dim(dd_numeric)[2]
 percInerAccum

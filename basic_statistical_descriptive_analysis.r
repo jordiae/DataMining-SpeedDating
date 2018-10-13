@@ -20,6 +20,7 @@ summary(speed_data$match)
 
 # Int_corr:
 summary(speed_data$int_corr)
+sd(speed_data$int_corr)
 #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #-0.7000 -0.0200  0.2100  0.1948  0.4300  0.9000 
 # As expected for a correlation there are values between -1 and 1, the extreme points arent reached, which means, that there wasn't a complete match 
@@ -136,9 +137,6 @@ barplot(summary(speed_data$field_cd))
 summary(speed_data$mn_sat)
 # Standart Deviation:
 sd(speed_data$mn_sat)
-# Bivariate Analysis
-with(speed_data, tapply(amb_o, list(field_cd), mean, na.rm=TRUE))
-barplot(with(speed_data, tapply(amb_o, list(field_cd), sd, na.rm=TRUE)))
 
 summary(speed_data$like)
 sd(speed_data$like)
@@ -192,4 +190,10 @@ summary(speed_data$tuition)
 sd(speed_data$tuition)
 #There are a high standard deviation (12091) because there are a lot of people
 #who haven't gone to college so they didn't paid.
+
+# Bivariate Analysis
+with(speed_data, tapply(amb_o, list(field_cd), mean, na.rm=TRUE))
+barplot(with(speed_data, tapply(amb_o, list(field_cd), sd, na.rm=TRUE)))
+
+
 

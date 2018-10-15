@@ -137,5 +137,22 @@ summary(speed_data$mn_sat)
 # Standart Deviation:
 sd(speed_data$mn_sat)
 # Bivariate Analysis
+# In the following plot will be analized how the different Groups regarding the field of study influence the points given in the different categories
 with(speed_data, tapply(amb_o, list(field_cd), mean, na.rm=TRUE))
-barplot(with(speed_data, tapply(amb_o, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(amb_o, list(field_cd), mean, na.rm=TRUE)))
+barplot(with(speed_data, tapply(attr_o, list(field_cd), mean, na.rm=TRUE)))
+barplot(with(speed_data, tapply(sinc_o, list(field_cd), mean, na.rm=TRUE)))
+barplot(with(speed_data, tapply(intel_o, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(fun_o, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(shar_o, list(field_cd), sd, na.rm=TRUE)))
+# Now for the expections that people have:
+barplot(with(speed_data, tapply(pf_o_sin, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(pf_o_fun, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(pf_o_int, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(pf_o_amb, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(pf_o_sha, list(field_cd), sd, na.rm=TRUE)))
+barplot(with(speed_data, tapply(pf_o_att, list(field_cd), sd, na.rm=TRUE)))
+# Here can be seen, how much in a particular field they value a particular Attribute
+
+
+

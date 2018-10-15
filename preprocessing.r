@@ -344,7 +344,7 @@ data_pending_missing_imputation[1440,"attr_o"] <- 10
 
 
 
-selected_vars<-c("gender","round","order","match","int_corr","samerace","age_o","race_o","pf_o_att","pf_o_sin", "pf_o_int", "pf_o_fun", "pf_o_amb","pf_o_sha" ,"dec_o","attr_o","sinc_o","intel_o","fun_o","amb_o","shar_o","age","field_cd","mn_sat","tuition","race","imprace","income","goal","date","go_out","dec","like","imprelig")
+selected_vars<-c("gender","round","order","match","int_corr","samerace","age_o","race_o","pf_o_att","pf_o_sin", "pf_o_int", "pf_o_fun", "pf_o_amb","pf_o_sha" ,"dec_o","attr_o","sinc_o","intel_o","fun_o","amb_o","shar_o","age","field_cd","mn_sat","tuition","race","imprace","income","goal","date","go_out","dec","like","imprelig", "university") # missed university
 data_pending_missing_imputation  <- data_pending_missing_imputation[selected_vars]
 
 littleTest <- LittleMCAR(data_pending_missing_imputation)

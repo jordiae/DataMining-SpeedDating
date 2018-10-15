@@ -20,6 +20,7 @@ summary(speed_data$match)
 
 # Int_corr:
 summary(speed_data$int_corr)
+sd(speed_data$int_corr)
 #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #-0.7000 -0.0200  0.2100  0.1948  0.4300  0.9000 
 # As expected for a correlation there are values between -1 and 1, the extreme points arent reached, which means, that there wasn't a complete match 
@@ -136,9 +137,64 @@ barplot(summary(speed_data$field_cd))
 summary(speed_data$mn_sat)
 # Standart Deviation:
 sd(speed_data$mn_sat)
+
+summary(speed_data$like)
+sd(speed_data$like)
+#Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#1.000   5.000   6.000   6.135   7.000  10.000 
+#This variable represent a mark from 1 to 10 of how much do you liked your partner,
+#as we can see the mean and the median are similar and close to 6 so overall there
+#are a lightly positive mark.
+
+summary(speed_data$dec)
+#  N    Y 
+#2097 1559
+#The 46.5% of people decided to "match" the partner and the remaining 53.5%
+#rejected his partner.
+
+summary(speed_data$go_out)
+#1Month   1Week  2Month   2Week   Never SevWeek SevYear 
+#98     745     212    1357      36    1157      51 
+
+barplot(summary(speed_data$go_out))
+#As we can see on the plot most of the people go out every 2 or several weeks
+
+summary(speed_data$date)
+
+barplot(summary(speed_data$date))
+#As we can see on the plot most of the people date every several years or every 2 months.
+
+summary(speed_data$goal)
+barplot(summary(speed_data$goal))
+#As we can see on the plot the main goals are having fun and meeting new people.
+
+summary(speed_data$income)
+sd(speed_data$income)
+#There are a big difference between the higher and the lower income, the standard deviation
+#is pretty high (17k). We can relate this to people who have studies and people
+#who don't.
+
+summary(speed_data$imprelig)
+sd(speed_data$imprelig)
+#In general people give little importance to religion.
+
+summary(speed_data$imprace)
+sd(speed_data$imprace)
+#In general people give little importance to race.
+
+summary(speed_data$race)
+barplot(summary(speed_data$race))
+#Most people have Caucastic race.
+
+summary(speed_data$tuition)
+sd(speed_data$tuition)
+#There are a high standard deviation (12091) because there are a lot of people
+#who haven't gone to college so they didn't paid.
+
 # Bivariate Analysis
 # In the following plot will be analized how the different Groups regarding the field of study influence the points given in the different categories
 with(speed_data, tapply(amb_o, list(field_cd), mean, na.rm=TRUE))
+
 barplot(with(speed_data, tapply(amb_o, list(field_cd), mean, na.rm=TRUE)))
 barplot(with(speed_data, tapply(attr_o, list(field_cd), mean, na.rm=TRUE)))
 barplot(with(speed_data, tapply(sinc_o, list(field_cd), mean, na.rm=TRUE)))
@@ -152,7 +208,8 @@ barplot(with(speed_data, tapply(pf_o_int, list(field_cd), sd, na.rm=TRUE)))
 barplot(with(speed_data, tapply(pf_o_amb, list(field_cd), sd, na.rm=TRUE)))
 barplot(with(speed_data, tapply(pf_o_sha, list(field_cd), sd, na.rm=TRUE)))
 barplot(with(speed_data, tapply(pf_o_att, list(field_cd), sd, na.rm=TRUE)))
-# Here can be seen, how much in a particular field they value a particular Attribute
+# Here can be seen, how much in a particular field they value a particular Attributte
+barplot(with(speed_data, tapply(amb_o, list(field_cd), sd, na.rm=TRUE)))
 
 
 

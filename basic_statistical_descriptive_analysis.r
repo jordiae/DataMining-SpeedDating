@@ -1,8 +1,9 @@
 # Import the Data of our cleaned dataset without any missing values
 
 speed_data <-read.csv("SpeedClean.csv",header = TRUE)
+array_attributes <- 
 
-#Univartiate Analysis
+#Univariate Analysis
 
 #gender:
 #Counting the values of both available gender:
@@ -45,88 +46,86 @@ summary(speed_data$age_o)
 summary(speed_data$race_o)
 # Asian Black  Cauc Latin Other 
 # 756   201  2199   289   211 
-# There are two big groups of races within the Speeddating sessions: Asian and Cauc
+# There are two big groups of races within the Speespeed_dataating sessions: Asian and Cauc
 barplot(summary(speed_data$race_o))
 # For the following 12 variables we will calculate the basic values(Mininma, 1st Quantile, Median, Mean, 3rd Quantile, Maximum and Standart Derivation )
 # pf_o_amb:
 summary(speed_data$pf_o_amb)
-with(speed_data, Hist(pf_o_amb, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(pf_o_amb, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$pf_o_amb)
 # pf_o_att:
 summary(speed_data$pf_o_att)
-with(speed_data, Hist(pf_o_att, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(pf_o_att, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$pf_o_att)
 
 # pf_o_sin:
 summary(speed_data$pf_o_sin)
-with(speed_data, Hist(pf_o_sin, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(pf_o_sin, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$pf_o_sin)
 # pf_o_int:
 summary(speed_data$pf_o_int)
-with(speed_data, Hist(pf_o_int, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(pf_o_int, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$pf_o_int)
 # pf_o_fun:
 summary(speed_data$pf_o_fun)
-with(speed_data, Hist(pf_o_fun, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(pf_o_fun, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$pf_o_fun)
 
 # pf_o_sha:
 summary(speed_data$pf_o_sha)
-with(speed_data, Hist(pf_o_sha, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(pf_o_sha, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$pf_o_sha)
 # dec_o:
 summary(speed_data$dec_o)
-with(speed_data, Hist(dec_o, scale="frequency", breaks="Sturges", 
-                      col="darkgray"))
 
 # Standart Deviation:
 sd(speed_data$dec_o)
 #attr_o:
 summary(speed_data$attr_o)
-with(speed_data, Hist(attr_o, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(attr_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$attr_o)
 #amb_o:
 summary(speed_data$amb_o)
-with(speed_data, Hist(amb_o, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(amb_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$amb_o)
 # sinc_o:
 summary(speed_data$sinc_o)
-with(speed_data, Hist(sinc_o, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(sinc_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$sinc_o)
 #fun_o:
 summary(speed_data$fun_o)
-with(speed_data, Hist(fun_o, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(fun_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$fun_o)
 #intel_o:
 summary(speed_data$intel_o)
-with(speed_data, Hist(intel_o, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(intel_o, scale="frequency", breaks="Sturges", 
                                                  col="darkgray"))
 # Standart Deviation:
 sd(speed_data$intel_o)
 
 #shar_o:
 summary(speed_data$shar_o)
-with(speed_data, Hist(shar_o, scale="frequency", breaks="Sturges", 
+with(speed_data, hist(shar_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
 # Standart Deviation:
 sd(speed_data$shar_o)
@@ -210,6 +209,45 @@ barplot(with(speed_data, tapply(pf_o_sha, list(field_cd), sd, na.rm=TRUE)))
 barplot(with(speed_data, tapply(pf_o_att, list(field_cd), sd, na.rm=TRUE)))
 # Here can be seen, how much in a particular field they value a particular Attributte
 barplot(with(speed_data, tapply(amb_o, list(field_cd), sd, na.rm=TRUE)))
+
+# Decriptive analysis after preprocessing
+class(speed_data)
+dim(speed_data)
+n<-dim(speed_data)[1]
+n
+K<-dim(speed_data)[2]
+K
+
+names(speed_data)
+
+listOfColors<-c("blueviolet","darkviolet","mediumvioletred", "palevioletred","violet", "violetred", "violetred4")
+listOfColors<-c("orange","blue","green", "white","yellow", "red", "violet")
+listOfColors<-palette()
+listOfColors<-rainbow(14)
+
+par(ask=TRUE)
+
+for(k in 1:K){
+  if (is.factor(speed_data[,k])){ 
+    frecs<-table(speed_data[,k], useNA="ifany")
+    proportions<-frecs/n
+    #ojo, decidir si calcular porcentages con o sin missing values
+    pie(frecs, cex=0.6, main=paste("Pie of", names(speed_data)[k]))
+    barplot(frecs, las=3, cex.names=0.7, main=paste("Barplot of", names(speed_data)[k]), col=listOfColors)
+    print(frecs)
+    print(proportions)
+  }else{
+    hist(speed_data[,k], main=paste("Histogram of", names(speed_data)[k]))
+    boxplot(speed_data[,k], horizontal=TRUE, main=paste("Boxplot of", names(speed_data)[k]))
+    print(summary(speed_data[,k]))
+    print(paste("sd: ", sd(speed_data[,k])))
+    print(paste("vc: ", sd(speed_data[,k])/mean(speed_data[,k])))
+  }
+}
+
+
+
+
 
 
 

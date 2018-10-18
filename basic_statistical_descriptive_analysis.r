@@ -134,10 +134,14 @@ summary(speed_data$field_cd)
 barplot(summary(speed_data$field_cd))
 #mn_sat
 summary(speed_data$mn_sat)
+with(speed_data, hist(mn_sat, scale="frequency", breaks="Sturges", 
+                      col="darkgray"))
 # Standart Deviation:
 sd(speed_data$mn_sat)
 
 summary(speed_data$like)
+with(speed_data, hist(like, scale="frequency", breaks="Sturges", 
+                      col="darkgray"))
 sd(speed_data$like)
 #Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #1.000   5.000   6.000   6.135   7.000  10.000 
@@ -168,16 +172,22 @@ barplot(summary(speed_data$goal))
 #As we can see on the plot the main goals are having fun and meeting new people.
 
 summary(speed_data$income)
+with(speed_data, hist(income, scale="frequency", breaks="Sturges", 
+                      col="darkgray"))
 sd(speed_data$income)
 #There are a big difference between the higher and the lower income, the standard deviation
 #is pretty high (17k). We can relate this to people who have studies and people
 #who don't.
 
 summary(speed_data$imprelig)
+with(speed_data, hist(imprelig, scale="frequency", breaks="Sturges", 
+                      col="darkgray"))
 sd(speed_data$imprelig)
 #In general people give little importance to religion.
 
 summary(speed_data$imprace)
+with(speed_data, hist(imprace, scale="frequency", breaks="Sturges", 
+                      col="darkgray"))
 sd(speed_data$imprace)
 #In general people give little importance to race.
 
@@ -186,6 +196,8 @@ barplot(summary(speed_data$race))
 #Most people have Caucastic race.
 
 summary(speed_data$tuition)
+with(speed_data, hist(tuition, scale="frequency", breaks="Sturges", 
+                      col="darkgray"))
 sd(speed_data$tuition)
 #There are a high standard deviation (12091) because there are a lot of people
 #who haven't gone to college so they didn't paid.

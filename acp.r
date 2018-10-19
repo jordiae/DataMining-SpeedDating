@@ -204,14 +204,17 @@ for (axis_h in 1:(nd-1)) {
     #determine zoom level
     #use the scale factor or not depending on the position of centroids
     # ES UN FACTOR D'ESCALA PER DIBUIXAR LES FLETXES MES VISIBLES EN EL GRAFIC
-    fm = round(max(abs(Psi[,1])))
+    #fm = round(max(abs(Psi[,1])))
     #fm=40
     
     #scale the projected variables
     #X<-fm*U[,eje1]
     #Y<-fm*U[,eje2]
-    X<-fm*Psi[,eje1]
-    Y<-fm*Psi[,eje2]
+    #X<-fm*Psi[,eje1]
+    #Y<-fm*Psi[,eje2]
+    
+    #X<-fm*Phi[,eje1]
+    #Y<-fm*Phi[,eje2]
     
    
     

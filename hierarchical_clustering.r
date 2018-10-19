@@ -18,17 +18,18 @@ setwd("/Users/yago/Documents/Clase/DataMining-SpeedDating");
 data <-read.csv("SpeedClean.csv", header=TRUE)
 
 #Algorithm to create clusters dealing with mixed numeric and categorical variables
-actives<-c(2:ncol(data))
+actives<-c(1:ncol(data))
 dissimMatrix <- daisy(data[,c(2:ncol(data))], metric = "gower", stand=TRUE)
 distMatrix<-dissimMatrix^2
 cluster <- hclust(distMatrix,method="ward.D") #this should be a high cost operation but it's not. Maybe I'm doing something wrong?
 #versions noves "ward.D" i abans de plot: par(mar=rep(2,4)) si se quejara de los margenes del plot
+plot(cluster)
 
 #this would be enough if we only had numerical variables
 #cluster <- hclust(dist(as.matrix(data)),method="ward.D2")
 
 #Calculate optimal number of clusters. Possible methods: "silhouette", "wss", "gap_stat". "gap_stat not working tho"
-fviz_nbclust(data, hcut, method = "gap_stat") +
+fviz_nbclust(data, hcut, method = "silhouette") +
 geom_vline(xintercept = 3, linetype = 2)
 
 #Assign the optimal number of clusters obtained from the functions above. It can also be any other number.

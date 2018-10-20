@@ -54,8 +54,6 @@ selected_columns_data  <- selected_rows_data[ selected_vars]
 
 #declare qualitative variables
 
-# doubts: "importance", like etc out of 10 (1-10), are really categorical?
-# order is numeric? it doesn't make sense to analyze it by itself
 
 
 selected_columns_data$gender <- as.factor(selected_columns_data$gender)

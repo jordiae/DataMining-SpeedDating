@@ -40,10 +40,6 @@ clusterCut <- cutree(cluster, numClusters)
 
 
 data$cluster <- clusterCut
-res <- kNN(data = data, metric="gower", variable = c("CLUSTER"),k = 3,imp_var = FALSE)
-plotMap(res,"CLUSTER","BEGIN_LAT","BEGIN_LON")
-plotMap(res,"EVENT_TYPE","BEGIN_LAT","BEGIN_LON")
-write.csv(x = res,file = "StormsClustered.csv")
 
 
 clusterCutRect <- rect.hclust(cluster, numClusters, border="red") 

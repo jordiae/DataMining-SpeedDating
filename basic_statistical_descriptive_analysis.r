@@ -36,7 +36,7 @@ summary(speed_data$age)
 # age_o:
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 21.00   24.00   26.00   26.09   28.00   39.00 
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$age)
 summary(speed_data$age_o)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
@@ -48,86 +48,86 @@ summary(speed_data$race_o)
 # 756   201  2199   289   211 
 # There are two big groups of races within the Speespeed_dataating sessions: Asian and Cauc
 barplot(summary(speed_data$race_o))
-# For the following 12 variables we will calculate the basic values(Mininma, 1st Quantile, Median, Mean, 3rd Quantile, Maximum and Standart Derivation )
+# For the following 12 variables we will calculate the basic values(Mininma, 1st Quantile, Median, Mean, 3rd Quantile, Maximum and standard Derivation )
 # pf_o_amb:
 summary(speed_data$pf_o_amb)
 with(speed_data, hist(pf_o_amb, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$pf_o_amb)
 # pf_o_att:
 summary(speed_data$pf_o_att)
 with(speed_data, hist(pf_o_att, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$pf_o_att)
 
 # pf_o_sin:
 summary(speed_data$pf_o_sin)
 with(speed_data, hist(pf_o_sin, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$pf_o_sin)
 # pf_o_int:
 summary(speed_data$pf_o_int)
 with(speed_data, hist(pf_o_int, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$pf_o_int)
 # pf_o_fun:
 summary(speed_data$pf_o_fun)
 with(speed_data, hist(pf_o_fun, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$pf_o_fun)
 
 # pf_o_sha:
 summary(speed_data$pf_o_sha)
 with(speed_data, hist(pf_o_sha, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$pf_o_sha)
 # dec_o:
 summary(speed_data$dec_o)
 
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$dec_o)
 #attr_o:
 summary(speed_data$attr_o)
 with(speed_data, hist(attr_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$attr_o)
 #amb_o:
 summary(speed_data$amb_o)
 with(speed_data, hist(amb_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$amb_o)
 # sinc_o:
 summary(speed_data$sinc_o)
 with(speed_data, hist(sinc_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$sinc_o)
 #fun_o:
 summary(speed_data$fun_o)
 with(speed_data, hist(fun_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$fun_o)
 #intel_o:
 summary(speed_data$intel_o)
 with(speed_data, hist(intel_o, scale="frequency", breaks="Sturges", 
                                                  col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$intel_o)
 
 #shar_o:
 summary(speed_data$shar_o)
 with(speed_data, hist(shar_o, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$shar_o)
  # field_cd:
 summary(speed_data$field_cd)
@@ -136,7 +136,7 @@ barplot(summary(speed_data$field_cd))
 summary(speed_data$mn_sat)
 with(speed_data, hist(mn_sat, scale="frequency", breaks="Sturges", 
                       col="darkgray"))
-# Standart Deviation:
+# standard Deviation:
 sd(speed_data$mn_sat)
 
 summary(speed_data$like)

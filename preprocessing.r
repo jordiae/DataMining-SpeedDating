@@ -517,7 +517,7 @@ data_after_imputation$at_o_sum <- NULL
 
 
 
-write.csv(data_after_imputation, file = "SpeedClean.csv")
+write.csv(data_after_imputation, file = "SpeedClean.csv",row.names = FALSE, col.names = TRUE)
 
 
 

@@ -2,11 +2,13 @@ install.packages("ggplot2")
 install.packages("cluster")
 install.packages("dplyr")
 install.packages("factoextra")
+install.packages("VIM")
 
 library(ggplot2)
 library(cluster)
 library(dplyr)
 library(factoextra)
+library(VIM)
 
 #know your actual working directory
 getwd();
@@ -34,6 +36,15 @@ geom_vline(xintercept = 3, linetype = 2)
 #Assign the optimal number of clusters obtained from the functions above. It can also be any other number.
 numClusters <- 3
 clusterCut <- cutree(cluster, numClusters)
+
+
+data$cluster <- clusterCut
+res <- kNN(data = data, metric="gower", variable = c("CLUSTER"),k = 3,imp_var = FALSE)
+plotMap(res,"CLUSTER","BEGIN_LAT","BEGIN_LON")
+plotMap(res,"EVENT_TYPE","BEGIN_LAT","BEGIN_LON")
+write.csv(x = res,file = "StormsClustered.csv")
+
+
 clusterCutRect <- rect.hclust(cluster, numClusters, border="red") 
 clustersTable <- table(clusterCut, data$match)
 clustersMatchTable <- table(clusterCut, data$match)

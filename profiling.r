@@ -6,8 +6,49 @@ names(dd)
 
 attach(dd)
 
-Match    <- as.factor(dd$match)
-levels(Match) <- c(NA, "positiu","negatiu")
+
+actives<-c(1:ncol(data))
+
+
+#for numerical variables we'll just do the mean for each variable and cluster
+numericalMeanOfEachCluster <- aggregate(data[, c(2,3,5,7,9,10,11,12,13,14,16,17,18,19,20,21,22,24,25,27,28,33,34,36)], list(data$cluster), mean)
+numericalMeanOfEachCluster
+
+active<-c(1,4,6,8,15,23,26,29,30,31,32,35)
+Match    <- as.factor(data$match)
+
+#createCPG(dd[,active], Tipo.trabajo)
+
+
+#data do not contain the response variable
+
+createCPG<- function(data, response)
+{
+  if (!is.factor(response)) 
+  {
+    cat("The variable ", names(response), " must be a factor" )	
+  }
+  else
+  {
+    #alerta! el maxim es 7 per fila
+    #sembla que 3 per columna ho fa amb numeriques. Mes ja no se. Qualis donen problemes
+    plotConditionalTable(data, response)
+  }#end else
+}#endcreateCPG
+
+
+
+#Fer gran la finestra del R
+createCPG(data[,active], as.factor(data$match))
+
+#attach(data)
+
+#fer creixer la finestra de plots
+#control - per fer menor el tipus de lletra en R
+createCPG(data[,active], as.factor(clusterCut))
+
+
+levels(Match) <- c("si","no")
 
 #Calcula els valor test de la variable Xnum per totes les modalitats del factor P
 ValorTestXnum <- function(Xnum,P){
@@ -27,7 +68,7 @@ ValorTestXnum <- function(Xnum,P){
 
 ValorTestXquali <- function(P,Xquali){
   taula <- table(P,Xquali);
-  n <- sum(taula); 
+  n <- sum(taula);
   pk <- apply(taula,1,sum)/n;
   pj <- apply(taula,2,sum)/n;
   pf <- taula/(n*pk);
@@ -41,7 +82,7 @@ ValorTestXquali <- function(P,Xquali){
 }
 
 
-dades<-dd
+dades<-data
 #dades<-df
 K<-dim(dades)[2]
 par(ask=TRUE)
@@ -156,6 +197,8 @@ for(k in 1:K){
   }
 }#endfor
 
+
+
 ################ Arreglar pvalues
 
 
@@ -166,117 +209,4 @@ for (c in 1:length(levels(as.factor(P)))) { if(!is.na(levels(as.factor(P))[c])){
 #saving the dataframe in an external file
 #write.table(dd, file = "credscoClean.csv", sep = ";", na = "NA", dec = ".", row.names = FALSE, col.names = TRUE)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#data do not contain the response variable
-
-createCPG<- function(data, response)
-{
-  if (!is.factor(response)) 
-  {
-    cat("The variable ", names(response), " must be a factor" )	
-  }
-  else
-  {
-    #alerta! el maxim es 7 per fila
-    #sembla que 3 per columna ho fa amb numeriques. Mes ja no se. Qualis donen problemes
-    plotConditionalTable(data, response)
-  }#end else
-}#endcreateCPG
-
-
-
-plotConditionalTable<-function(data, res)
-{
-  if(ncol(data)==0)
-  {
-    cat("Number of columns of dataset is 0")	
-    return()
-  }#endif
-  if(nrow(data)==0) 
-  {
-    cat("Number of rows of dataset is 0")  
-    return()
-  }#endif
-  #proceed only if data frame is non empty
-  
-  #transform response variable into a suitable string for printing purposes
-  response<-factor(res)
-  
-  #create an auxiliary matrix with as much rows as classes to keep the position of figures in the CPG
-  nc<-length(levels(response))
-  K<-dim(data)[2]
-  ncells<-nc*K
-  
-  mat<- matrix(data=c(1:ncells),nrow= nc, ncol=K, byrow=FALSE)
-  
-  #ojo, que si esta buit el panell peta
-  dev.off()
-  layout(mat, widths= rep.int(1, K), heights= rep.int(1,nc))
-  
-  for (k in 1:K){
-    Vnum<-data[,k]
-    for(niv in levels(response)){
-      print(niv)
-      s<-subset(Vnum, response==niv)
-      if(is.numeric(data[,k]))
-      {  hist(s, main=paste(names(data)[k], niv))
-        #evenctually add other summary statistics, like vc
-      }else{
-        barplot(table(s), las=3, cex.names=0.5, main=paste("Barplot of", names(data)[k]))
-      }#endifelse
-    }#end for niv       
-  }#end for k
-}#end plot conditional table      
-
-
-
-
-
-
-
-
-
-
-
-
-#CPG plots
-
-source("D:/karina/docencia/areferenciesPPT/9.Clustering/PracticaEnR/CPGkNoLatex.r")
-#CPG(iris, iris$Species, method= "", path="D:/karina/docencia/areferenciesPPT/9.Clustering/PracticaEnR/",  nrow=3, ncol=5)
-
-#setwd("D:/karina/docencia/areferenciesPPT/0DadesPractiques/CREDSCO")
-#dd <- read.csv("credscoClean.csv", sep=";");
-#attach(dd)
-
-active<-c(2)
-#active<-c(2,5,6,7,10,15)
-
-attach(dd)
-createCPG(dd[,active], data$match)
-
-#Fer gran la finestra del R
-createCPG(data[,active], Match)
-
-dades<-iris
-attach(dades)
-plotConditionalTable(dades[,1:2], Species)
-
-#fer creixer la finestra de plots
-#control - per fer menor el tipus de lletra en R
-createCPG(dd[,active], as.factor(clusterCut))
-
-#falta jugar amb els marges
 

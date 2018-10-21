@@ -14,7 +14,10 @@ actives<-c(1:ncol(data))
 numericalMeanOfEachCluster <- aggregate(data[, c(2,3,5,7,9,10,11,12,13,14,16,17,18,19,20,21,22,24,25,27,28,33,34,36)], list(data$cluster), mean)
 numericalMeanOfEachCluster
 
+#choose
 active<-c(1,4,6,8,15,23,26,29,30,31,32,35)
+active<-c(2,3,5,7,9,10,11,12,13,14,16,17,18,19,20,21,22,24,25,27,28,33,34,36)
+
 Match    <- as.factor(data$match)
 
 #createCPG(dd[,active], Tipo.trabajo)

@@ -1,0 +1,160 @@
+\begin{document}
+\begin{comment}
+     Here is the list of the variables we will study:\\
+    \\
+    \begin{tabular}{|c|c}
+    \hline
+    variable & explanation\\
+    \hline
+    gender&gender of the participant(1:Male, 0:Female)\\
+    \hline
+    round&Number of people that met in wave\\
+    \hline
+    order&the number of date that night when met partner\\
+    \hline
+     match&indicates if the 2 participants decided to have a second date(1:Yes,0:No)\\
+     \hline
+     int_corr&correlation between participant’s and partner’s ratings of interests(filled before the event)\\
+     \hline
+     samerace&participant and the partner were the same race (1:Yes, 0:No)\\
+     \hline
+     age_o&age of partner\\
+     \hline
+     race_o&race of partner\\
+     \hline
+     pf_o_att&partner’s stated preference for attractiveness\\
+     \hline
+     pf_o_sin&partner’s stated preference for sincereness\\
+     \hline
+     pf_o_int&partner’s stated preference for intelligence\\
+     \hline
+     pf_o_fun&partner’s stated preference for fun\\
+     \hline
+     pf_o_amb&partner’s stated preference for ambition\\
+     \hline
+     pf_o_sha&partner’s stated preference for having shared interests/hobbies\\
+     \hline
+     dec_o&indicates if the partner decided to have a second date with the participant\\
+     \hline
+     attr_o&rating by partner the night of the event for attractiveness\\
+     \hline
+     sinc_o&rating by partner the night of the event for sincereness\\
+     \hline
+     intel_o&rating by partner the night of the event for intelligence\\
+     \hline
+     fun_o&rating by partner the night of the event for fun\\
+     \hline
+     amb_o&rating by partner the night of the event for ambition\\
+     \hline
+     shar_o&rating by partner the night of the event for shared interest/hobbies\\
+     \hline
+     age&age of the participant\\
+     \hline
+     field_cd&field of study\\
+     \hline
+     mn_sat&Median SAT score for the undergraduate institution where the participant attended.\\
+     \hline
+     tuition&fees paid by the participant at university\\
+     \hline
+     race&race of the participant\\
+     \hline
+     imprace&importance the participant gives to date someone with the same racial/ethnic background\\
+     \hline
+     income&Median household income of the participant\\
+     \hline
+     goal&primary goal of the participant to participate in this event\\
+     \hline
+     date&Indicates how frequently the participant go on dates\\
+     \hline
+     go_out&Indicates how frequently the participant go out\\
+     \hline
+     dec&Decision of the participant\\
+     \hline
+     like&How much the participant like this person(partner)\\
+     \hline
+     imprelig&Importance the participant gives to date someone with the same religious background\\
+     \hline
+     university&Indicates if the participant went to university(1: Yes, 0:No)\\
+     \hline
+    \end{tabular}
+    \\
+    \\
+
+\\
+
+\end{comment}
+We tried to follow the steps and methods which we have been learning in class. Particularly, we based our work on the reference survey\footnote{A survey on pre-processing techniques: Relevant issues in the context of environmental data mining: \url{https://www-eio.upc.edu/~karina/datamining/refmaterial/metainfoPrepro/AIC710def.pdf}}.
+
+\subsection{Building the original data matrix}
+
+We started by building the original data matrix and introducing the data into the pre-processing tool (R). The dataset is stored in a single CSV file (the default separator will work for us), NAs can be both 'NA' or empty and the header is included.
+
+At this point, we checked the dataset by reading the first rows, reading the summary of the data, counting NAs... Recall that we had 190 variables: 7 binary, 51 categorical, 129 numeric and 3 id columns. These types had to be checked manually by inspecting the dataset, because for instance many qualitative variable were codified and detected as numeric. We had about 26\% missing values. We did some early visualization, too (still, in order to check the sanity of the data and get familiar with our dataset).
+
+
+\subsection{Determining the working data matrix}
+
+\subsubsection{Rows}
+
+In order to have coherent and clean data, we discarded the rows belonging to special waves of dates (the ones conditioned to particular events) and the ones with different preference scales (for the preference questions, some waves had a 1-10 scale instead of 0-100 points to distribute). Actually, it can be considered that they had different questions, so it is not feasible to adapt them. We will not take into account these special waves of dates.
+
+\subsubsection{Columns}
+
+We had many variables. Some of them were introducing noise, some of them were redundant or way too concrete, some of them are out of the scope of our intended analysis. We performed to do a kind of "expert" variable selection. As stated before, we are only interested in the dates itself, not in the self-perceptions, expectations or follow-ups. Also, the variable \textit{int\_corr} tells us the correlation of interests between the two partners of a date, so we discarded the other variables containing the information with the exact interests.
+
+So, we are essentially keeping the same variables present in the metadata table.
+
+At this point we still kept the id's because we needed them for some of the following steps (for missing imputation purposes). We kept \textit{undergra}, too. Although it will not be present in the final dataset, we needed it in some intermediate steps. This variable contains the names of the universities attended by each one of the participants (provided they attended university; otherwise the cell is NA).
+
+\subsection{Declaring qualitative variables and relabeling}
+
+R detected as numeric some variables which were actually qualitative, because they were codified as numbers, so we had to manually declare them as categorical. Also, for data visualization, we relabeled the categories. For instance, instead of \textit{gender} being 0 or 1, the final dataset had \textit{F} or  \textit{M} (as in female or male). The exact procedures and affected variables can be consulted in the R code.
+
+\subsection{Declaring numeric variables}
+Strangely enough, R detected as qualitative variables some columns which were actually numeric: \textit{mn\_sat}, \textit{tuition} and \textit{income}, so we had to declare them as numeric.
+
+\subsection{Outlier detection and visualization}
+
+We did a loop which did plots of all variables to manually inspect them in order to find potential candidates for being outliers. We make R print the percentage of missing values for each variable, too.
+
+This part was very hard because we had to go variable by variable trying to figure out what to do in each case. The whole process is detected in the R codes (appendix).
+
+For instance, some ages did not fit in the boxplot, but they were real ages.
+
+
+\subsection{Error detection and treatment}
+
+In \textit{imprace}, 0 was not a valid value in the scale, so we replaced all occurences of 0 by NA.
+
+We deleted the whole \textit{met} because their values did not follow at all the specifications of the document of the original study (it was supposed to be binary but actual values were between 0 and 7), so we had no way of treating or interpreting it.
+
+\subsection{Missing imputation}
+
+We had two structural missings: \textit{tuition} and  \textit{mn sat}, because they only made sense for people who had attended university. So we used \textit{undergra} in order to revalue as 0 all NA's of people who hadn't attended university. We created a new binary variable using both \textit{undergra} and \textit{tuition}: \textit{university}, which tracked whether participants had attended university. This had to be done at this point.
+
+We created new labels for missings for qualitative variable: \textit{unknown}, which would replace NAs.
+
+We run the Little Test but in our case it was not very informative.
+
+For the remaining missing numeric values, we considered both KNN and MIMMI, but we chose KNN. The problem was that all numeric variables had at least one missing, so we could not run KNN. By manually inspecting the missings, we observed that 3 particular individuals were responsible for many missings. By removing it and manually curating a very few rows (using expert knowledge and common-sense), we could start applying the KNN iteratively (starting with the variables that had the less missings).
+
+\subsection{New variables}
+
+As stated before, we will have the variable \textit{university}. Also, we created a new numeric variable, \textit{diff age}, the absolute difference of ages.
+
+\subsection{Re-scaling}
+
+The KNN method is not aware that the preferences must add up to 100 for each row, so we had to re-scale these columns. There was only one row for each all preferences added up to 0, so we removed this row.
+
+\begin{comment}
+We could not apply
+
+We tried 
+
+In our dataset we had 2 variables(tuition and mnsat),which depend on whether they have gone to university or not (indicated in undergrad variable). We realized that all missings fields in mnsat and tuition were caused because the participant hadn't gone to university, becoming an structural missing, which we replaced with 0.\\
+After looking at all the rows with missing data, it can be seen that there were three people (iid= 29,59,58), that were responsible for the missing Values, using domain knowledge and expert selection we realized that these people hadn't filled the questionnaires properly(lots of missing values in their rows), that's why we deleted all dates these people had.\\
+After that, there were still two types of missing values. Rows with single missing Values and rows with all of them missing. So we cut out rows with all values missing, we concluded that if all attributes values were missing it means that questionnaire was probably not answered, invalidating the row.\\
+Finally in all categorical variables with some NA, we created a new level called "Unknown" to encompass all the NA's of the variable, after that, we applied KNN for each numerical variable with some NA in order to replace them with an accurate prediction based on nearest neighbours.
+\end{comment}
+        
+\end{document}

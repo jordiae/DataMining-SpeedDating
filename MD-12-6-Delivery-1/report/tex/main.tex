@@ -1,0 +1,156 @@
+ \documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[left=3cm,top=3cm,right=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{changepage}
+\usepackage{minted}
+\usepackage{array}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{tabu}
+\usepackage{wrapfig}
+\usepackage{subfiles}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{capt-of}
+% Para mostrar imagenes en subficheros
+\graphicspath{{images/}{../images/}}
+
+% B i b l i o 
+%\usepackage[
+%backend=biber,
+%style=alphabetic,
+%sorting=ynt
+%]{biblatex}
+ 
+%\addbibresource{simple.bib}
+
+
+%\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+%\titleformat*{\subsubsection}{\large\bfseries}
+%\titleformat*{\paragraph}{\large\bfseries}
+%\titleformat*{\subparagraph}{\large\bfseries}
+
+\setlength\parindent{0pt} %text no entrat a la primera línia
+\setlength{\parskip}{2mm} %interlineat
+
+\title{MD}
+\date{October 2018}
+
+%\leavevmode
+\newenvironment{subs}{\adjustwidth{3em}{0pt}\nointerlineskip}{\endadjustwidth\newpage}
+
+\newenvironment{paras}{\adjustwidth{3em}{0pt}\nointerlineskip}{\endadjustwidth}
+
+
+\begin{document}
+%\maketitle
+%\newpage
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} 
+\center % Center everything on the page
+\textsc{\LARGE Universitat Polit\`ecnica de Catalunya}\\[1.5cm] % Name of your university/college <-- redundante, mejor quitar este (?)
+\textsc{\Large Data Mining (MD)}\\[0.5cm] % Major heading such as course name
+\textsc{\large Bachelor Degree in Computer Science}\\[0.5cm] % Minor heading such as course title
+\HRule \\[0.4cm]
+{\huge \bfseries Practical Work 1: Speed Dating Dataset}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.9\textwidth}
+\begin{center} \large
+\emph{Authors:}\\
+Jordi \textsc{Armengol Estapé},
+Marc \textsc{Catrisse Pérez},\\
+Albert \textsc{Figuera Pérez},
+Roland \textsc{Frieß},\\
+Enrique \textsc{González Sequeira},
+Jacobo \textsc{Moral Buendía}
+\end{center}
+\end{minipage}\\[1.1cm]
+
+\begin{minipage}{0.9\textwidth}
+\begin{center} \large
+\emph{Professors:} \\
+Karina \textsc{Gibert} \\% Supervisor's Name
+Beatriz \textsc{Sevilla}
+\end{center}
+\end{minipage}\\[2cm]
+{\large October 26th}\\
+{\large Fall semester, 2018-2019}\\[2cm] 
+\includegraphics[scale=0.6]{logoUPC.png}
+\\[1cm] 
+\vfill 
+\end{titlepage}
+\tableofcontents
+\newpage
+
+
+%\section{Introduction}
+%\subfile{1introduction.tex}
+%\newpage
+
+\section{Motivation and general description of the problem}
+\subfile{3Motivation.tex}
+\newpage
+
+\section{Data source presentation}
+\subfile{4data_source_presentation.tex}
+%\newpage
+
+\section{Formal description of data structure and metadata}
+\subfile{5data_structure.tex}
+
+\section{Complete data mining process}
+\subfile{6process.tex}
+\newpage
+
+\section{Preprocessing and data preparation}
+\subfile{7preprocessing.tex}
+\newpage
+
+\section{Statistical descriptive analysis}
+\subfile{8statistical.tex}
+\newpage
+
+\section{PCA analysis}
+\subfile{9acp.tex}
+\newpage
+
+\section{Hirerarchical Clustering}
+\subfile{10clustering.tex}
+\newpage
+
+\section{Profiling of clusters}
+\subfile{11profiling.tex}
+\newpage
+
+\section{Global discussion}
+\subfile{12global_discussion.tex}
+\newpage
+
+\section{Conclusions}
+\subfile{13conclusions.tex}
+\newpage
+
+\section{Working plan}
+\subfile{14workplan.tex}
+\newpage
+
+\section{R Scripts}
+\subfile{15r_scripts.tex}
+\newpage
+\end{document}

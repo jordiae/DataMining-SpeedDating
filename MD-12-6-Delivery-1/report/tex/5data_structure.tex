@@ -1,0 +1,195 @@
+\begin{document}
+As stated before, our dataset is not simple. The original dataset contained as many as 8378 rows and 190 columns. Also, the meaning of each one of them is not easy to interpret. Fortunately, the researchers who collected the data released a document detailing the meaning of each variable and the way the study was conducted \footnote{{Speed Dating Data Key: \url{https://perso.telecom-paristech.fr/eagan/class/igr204/data/SpeedDatingKey.pdf}}}. We encourage the reader to take a look at this document. Nevertheless, we have found some variables and procedures to still not be documented in a way we could properly understand. In the original dataset, about 26\% of the data was missing; there were 7 binary variables, 129 numeric variables, 51 categorical variables and 3 id columns. Later on we will detail the final selection.
+
+\subsection{Rows}
+The dataset we chose correspond to information gathered from participants using the following questionnaires:
+\begin{itemize}
+    \item The survey filled out by people which is interested in participating in order to register for.
+    \item The scoreboard about their partner that each participant had to fill after each meeting.
+    \item The survey filled out the day after participating in the event.
+    \item The survey filled out 3/4 days after participating in the event.
+\end{itemize}
+Each row of our dataset corresponds to a date, which contains filled information by the participant and his or her partner (only heterosexual dates were considered in the original study). However, as each row tells the date from the point of view of one participant, a single wave data has 2 entries for each date.
+
+\subsection{Metadata table}
+
+
+
+%(metadata here do it with excel2latex, i dont have excel on my pc)
+
+The following table corresponds to the metadatable table of the selected variables (not the original dataset):
+
+\setlength\LTleft{-0.75in}\begin{longtable}{@{\extracolsep{\fill}}|p{.125\textwidth}|p{.11\textwidth}|p{.15\textwidth}|p{.08\textwidth}|p{.1\textwidth}|p{.08\textwidth}|p{.12\textwidth}|p{.10\textwidth}|p{.12\textwidth}|}
+\hline
+	\textit{Variable} & \textit{Modalities} & \textit{Meaning} & \textit{Type} & \textit{Measuring unit} & \textit{Missing code} & \textit{Measuring procedure} & \textit{Range} & \textit{Role} \\ \hline
+	\endfirsthead
+%
+\endhead
+	gender &  & gender of the subject. Female=0, Male=1 & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	order &  & the number of date that night when met partner & Number &  & *empty cell &  & [1,22] & Explanatory \\ \hline
+	match &  & there's been a match between the two subjects & Boolean &  & *empty cell & True if dec = dec\_o = true. False otherwise &  & Response \\ \hline
+	int\_corr &  & correlation between participant’s and partner’s ratings of interests & Number &  & *empty cell &  & [-1,1] & Explanatory \\ \hline
+	samerace &  & participant and the partner were the same race & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	age\_o &  & age of partner & Number & Years & *empty cell &  & [0-100] & Explanatory \\ \hline
+	race\_o & 1: Black; 2: Caucasian; \hphantom{1} 3: Latino; 4: Asian; 5: Native Americ; \hphantom{1} 6: Other  & race of partner & Qualit. &  & *empty cell &  & [1,6] & Explanatory \\ \hline
+	pf\_o\_att &  & partner’s stated preference for attractive attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_sin &  & partner’s stated preference for sincere attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_int &  & partner’s stated preference for intelligent attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_fun &  & partner’s stated preference for funattribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_amb &  & partner’s stated preference for ambitious attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_sha &  & partner’s stated preference for shared interests attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	dec\_o &  & decision of partner the night of the event & Boolean &  & *empty cell &  &  & Response \\ \hline
+	attr\_o &  & rating by partner the night of the event for attractive attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	sinc\_o &  & rating by partner the night of the event for sincere attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	intel\_o &  & rating by partner the night of the event for intelligent attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	fun\_o &  & rating by partner the night of the event for fun attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	amb\_o &  & rating by partner the night of the event for ambitious attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	shar\_o &  & rating by partner the night of the event shared interests attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	age &  & age of subject & Number & Years & *empty cell &  & [0-100] & Explanatory \\ \hline
+	field\_cd & 1: Law; 2: Math; 3: SocSci Psych; 4: Med Pharma Biotech; 5:Engin;\hphantom{2} 6: Writ Journ \hphantom{1} 7: His/Rel Phil; \hphantom{2} 8:Bis/Econ /Fin; \hphantom{1} 9:EduAcad 10: BioSci Chem Phy; 11: SocWork; 12: Undgrad/Undec 13: PolSci 14: Film; 15: Arts; 16: Lang; 17: Arch; 18: Other & field of study & Qualit. &  & *empty cell &  & [1,18] & Explanatory \\ \hline
+	mn\_sat &  & Median SAT score for the undergraduate institution where attended & Number &  & *empty cell &  & [400,1600] & Explanatory \\ \hline
+	tuition &  & Tuition listed for each response to undergrad in Barron’s 25th Edition college profile book & Number & Dollars & *empty cell &  &  & Explanatory \\ \hline
+	race & 1: Black; 2: Caucasian; \hphantom{1} 3: Latino; 4: Asian; 5: Native Americ; \hphantom{1} 6: Other & race of subject & Qualit. &  & *empty cell &  & [1,6] & Explanatory \\ \hline
+	imprace &  & Importance to subject that partner is the same race & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	income &  & Income/salary of subject & Number & Dollars/year &  &  &  &  \\ \hline
+	goal & \Longstack{1: Seemed like a fun night out. 2: To met new people. \hphantom{1} 3: To meet new people. \hphantom{1} 4: Looking for a serious relationship. \hphantom{1} 5: To say I did it. \hphantom{1} 6: Other. & Primary goal of participating in the event & Qualit. &  & *empty cell &  & [1,6] & Explanatory \\ \hline
+	date & 1: Several times a week; 2: Twice a week. \hphantom{1} 3: Once a week. \hphantom{1}4: Twice a month. 5: Once a month. \hphantom{1} 6: Several times a year. \hphantom{1} 7: Almost never & How often does subject go on a date & Qualit. & & *empty cell &  & [1,7] & Explanatory \\ \hline
+
+	go\_out & 1: Several times a week; 2: Twice a week; \hphantom{1} 3: Once a week; 4: Twice a month; 5: Once a month; \hphantom{1} 6: Several times a year. \hphantom{1} 7: Almost never & How often does subject go out & Qualit. &  & *empty cell &  & [1,7] & Explanatory \\ \hline
+
+	dec &  & Decision of subject & Boolean &  & *empty cell &  &  & Response \\ \hline
+	like &  & How much does subject like partner & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	%met &  & Subject has met partner before & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	imprelig &  & Importance to subject that partner is the same religion background & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	diff\_age &  & Absolute difference of between partners age & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	university &  & Whether the person attended (or is attending) university & Boolean &  & *empty cell &  & & Explanatory \\ \hline
+	round & & number of people that met in wave & Number  &  & *empty cell &  & [6-21] & Explanatory \\ \hline
+	
+\end{longtable}
+
+
+
+\begin{comment}
+\resizebox{17cm}{!} {\[
+
+\begin{array}{ | l | l | l | l | l | l | l | l | l | }
+\hline
+	Variable & Modalities & Meaning & Type & Measuring unit & Missing code & Measuring procedure & Range & Role \\ \hline
+	gender &  & gender of the subject. Female=0, Male=1 & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	order &  & the number of date that night when met partner & Number &  & *empty cell &  & [1,22] & Explanatory \\ \hline
+	match &  & there's been a match between the two subjects & Boolean &  & *empty cell & True if dec = dec\_o = true. False otherwise &  & Explanatory \\ \hline
+	int\_corr &  & correlation between participant’s and partner’s ratings of interests & Number &  & *empty cell &  & [-1,1] & Explanatory \\ \hline
+	samerace &  & participant and the partner were the same race & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	age\_o &  & age of partner & Number & Years & *empty cell &  & [1-100] & Explanatory \\ \hline
+	race\_o &  & race of partner & Qualit. &  & *empty cell &  & [1,6] & Explanatory \\ \hline
+	1.0 & Black/African American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	2.0 & European/Caucasian-American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	3.0 & Latino/Hispanic American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	4.0 & Asian/Pacific Islander/Asian-American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	5.0 & Native American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	6.0 & Other & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	pf\_o\_att &  & partner’s stated preference for attractive attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_sin &  & partner’s stated preference for sincere attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_int &  & partner’s stated preference for intelligent attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_fun &  & partner’s stated preference for funattribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_amb &  & partner’s stated preference for ambitious attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	pf\_o\_sha &  & partner’s stated preference for shared interests attribute & Number &  & *empty cell &  & [0,100] & Explanatory \\ \hline
+	dec\_o &  & decision of partner the night of the event & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	attr\_o &  & rating by partner the night of the event for attractive attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	sinc\_o &  & rating by partner the night of the event for sincere attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	intel\_o &  & rating by partner the night of the event for intelligent attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	fun\_o &  & rating by partner the night of the event for fun attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	amb\_o &  & rating by partner the night of the event for ambitious attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	shar\_o &  & rating by partner the night of the event shared interests attribute & Number &  & *empty cell &  & [0,10] & Explanatory \\ \hline
+	age &  & age of subject & Number & Years & *empty cell &  & [0-100] & Explanatory \\ \hline
+	field\_cd &  & field of study & Qualit. &  & *empty cell &  & [1,18] & Explanatory \\ \hline
+	1.0 & Law & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	2.0 & Math & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	3.0 & Social Science, Psychologist  & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	4.0 & Medical Science, Pharmaceuticals, and Bio Tech & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	5.0 & Engineering   & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	6.0 & English/Creative Writing/ Journalism  & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	7.0 & History/Religion/Philosophy  & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	8.0 & Business/Econ/Finance  & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	9.0 & Education, Academia & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	10.0 & Biological Sciences/Chemistry/Physics & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	11.0 & Social Work  & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	12.0 & Undergrad/undecided & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	13.0 & Political Science/International Affairs & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	14.0 & Film & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	15.0 & Fine Arts/Arts Administration & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	16.0 & Languages & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	17.0 & Architecture & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	18.0 & Other & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	mn\_sat &  & Median SAT score for the undergraduate institution where attended & Number &  & *empty cell &  & [400,1600] & Explanatory \\ \hline
+	tuition &  & Tuition listed for each response to undergrad in Barron’s 25th Edition college profile book & Number & Dollars & *empty cell &  &  & Explanatory \\ \hline
+	race &  & race of subject & Qualit. &  & *empty cell &  & [1,6] & Explanatory \\ \hline
+	1.0 & Black/African American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	2.0 & European/Caucasian-American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	3.0 & Latino/Hispanic American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	4.0 & Asian/Pacific Islander/Asian-American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	5.0 & Native American & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	6.0 & Other & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	imprace &  & Importance to subject that partner is the same race & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	income &  & Income/salary of subject & Number & Dollars/year &  &  &  &  \\ \hline
+	goal &  & Primary goal of participating in the event & Qualit. &  & *empty cell &  & [1,6] & Explanatory \\ \hline
+	1.0 & "Seemed like a fun night out" & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	2.0 & "To meet new people" & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	3.0 & "To get a date" & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	4.0 & "Looking for a serious relationship" & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	5.0 & "To say I did it" & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	6.0 & "Other" & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	date &  & How often does subject go on a date & Qualit. &  & *empty cell &  & [1,7] & Explanatory \\ \hline
+	1.0 & Several times a week & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	2.0 & Twice a week & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	3.0 & Once a week & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	4.0 & Twice a month & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	5.0 & Once a month & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	6.0 & Several times a year & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	7.0 & Almost never & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	go\_out &  & How often does subject go out & Qualit. &  & *empty cell &  & [1,7] & Explanatory \\ \hline
+	1.0 & Several times a week & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	2.0 & Twice a week & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	3.0 & Once a week & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	4.0 & Twice a month & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	5.0 & Once a month & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	6.0 & Several times a year & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	7.0 & Almost never & \  & \  & \  & \  & \  & \  & \  \\ \hline
+	dec &  & Decision of subject & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	like &  & How much does subject like partner & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	%met &  & Subject has met partner before & Boolean &  & *empty cell &  &  & Explanatory \\ \hline
+	imprelig &  & Importance to subject that partner is the same religion background & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	diff\_age &  & Absolute difference of between partners age & Number &  & *empty cell &  & [1,10] & Explanatory \\ \hline
+	university &  & Whether the person attended (or is attending) university & Boolean &  & *empty cell &  & & Explanatory \\ \hline
+	
+\end{array}
+\]}
+\end{comment}
+
+
+
+\subsection{Final scope}
+The original data were collected for a large-scale study on romantic relationships and some factors like the race. As stated before, it had 190 variables, of which 7 were binary, 51 were qualitative and 129 were numeric. In order to cut some of them, we analyzed the documentation of our data in order to find variables that could be removed out without losing the sense of the data. We realized that there were many redundant columns. It have to be taken into account that the scope of our study was the factors influencing the success of dates, and actually the dataset included much more information. So, we removed many variables mainly because of two reasons:
+\begin{itemize}
+    \item Because many of them were not actually related to the aim of our study. Please recall that our goal is to answer the question \textit{What attributes influence the selection of a romantic partner?}.
+    \item Because some of them explain an information which is contained in another, more general variable (redundancy). Still, we will keep some redundant variables that we considered useful.
+\end{itemize}
+
+We decided to remove all variables related to the follow-up questions and keep only the main questions, because we were only keen on the dates itself. We removed some of the variables related to the questionnaire filled before of the dates, since we were not interested in the self-perceptions and expectations of individuals (which would require a whole data mining project itself). Interests were removed because they were summarized in one variable, the correlation of interests between partners. Also, a subset of rows were devoted to special waves of dates, that is to say, dates conditioned to certain events and with different questions. We did not consider these rows. We cut out the rows referring to badly answered questionnaires as well. As far as the removed variable \textit{undergra} is concerned, we performed a semantic collapse.
+
+The complete process of rows and variables selection will be detailed in the pre-processing section.
+
+\begin{comment}
+For our studies we had to cut some variables from the data-set. In order to do that we analyzed the key of our data in order to find variables that can be cut out without loosing the sense of the data. We identified that a lot of the variables were referring to other variables so we cut out the variables with the same sense. For example field\_cd and field that include the same information. After having done that we still had to many variables for this project. So we decided in order to reduce the complexity to cut out more variables that are independent from the other variables. To tackle our question, how different factors are influencing the probability of having a match we kept the variables match, dec and dec\_o. Dec describes if the person who filled out the questionnaire liked the person and dec\_o describes the decision of the other person. So these are the variables we want to predict. A match occurs when both binary coded variables dec\_o and dec are "1". First we kept the iid and pid in order to identify each different row. After that we thought about what would be interesting to analyze and kept variables according to tackle different questions. Therefore we kept variables to answer the questions:
+\begin{description}
+\item[1.)] What's the influence of the age and age difference between the partners regarding their decision?
+\item[2.)] Which attributes influence the decision most?
+\item[3.)] How does the stated importance of a person influence their decisions?
+\item[4.)] How does the social status influence the decision? (income, money spend on college, field of study, result of the test to get into college)
+\item[5.)] Is there an influence of the goal or the amount of dates people have to their probability of having a match? 
+
+\end{description}
+We kept 31 variables that can have an influence on these different question. The detailed decision for every variable can be found in the chapter Preprocessing. After that we cut out the rows referring to badly answered questionnaires. 
+\end{comment}
+
+\end{document}

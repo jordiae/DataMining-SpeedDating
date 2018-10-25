@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>14.4 - Agglomerative Hierarchical Clustering | STAT 505</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="prev" href="../141/" />
+<link rel="up" href="../138/" />
+<link rel="next" href="../144/" />
+<link rel="shortcut icon" href="../../sites/onlinecourses.science.psu.edu.stat505/files/online_ed2_favicon/index.ico" type="image/x-icon" />
+    <link type="text/css" rel="stylesheet" media="all" href="../../modules/book/book/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../modules/node/node/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../modules/system/defaults/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../modules/system/system/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../modules/system/system-menus/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../modules/user/user/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/modules/cck/theme/content-module/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/modules/hovertip/hovertip/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/modules/thickbox/thickbox/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/modules/thickbox/thickbox_ie/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/modules/extlink/extlink/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/modules/cck/modules/fieldgroup/fieldgroup/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/modules/print/css/printlinks/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/themes/online_ed2/css/default/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/themes/online_ed2/css/layout/index.css?r" />
+<link type="text/css" rel="stylesheet" media="all" href="../../sites/all/themes/online_ed2/css/style/index.css?r" />
+<link type="text/css" rel="stylesheet" media="screen" href="../../sites/all/modules/iconizer/proto_icons/index.css?r" />
+<link type="text/css" rel="stylesheet" media="screen" href="../../sites/all/themes/online_ed2/css/tabs/index.css?r" />
+<link type="text/css" rel="stylesheet" media="print" href="../../sites/all/themes/online_ed2/css/print/index.css?r" />
+    <!--[if lte IE 6]><link type="text/css" rel="stylesheet" media="all" href="/stat505/sites/all/themes/online_ed2/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link type="text/css" rel="stylesheet" media="all" href="/stat505/sites/all/themes/online_ed2/css/ie7.css" /><![endif]-->
+    <!--[if IE 8]><link type="text/css" rel="stylesheet" media="all" href="/stat505/sites/all/themes/online_ed2/css/ie8.css" /><![endif]-->
+    <link rel="stylesheet" href="../../sites/all/files/tabcontent/index.css" type="text/css"/>
+    <script type="text/javascript" src="../../misc/jquery/index.js?r"></script>
+<script type="text/javascript" src="../../misc/drupal/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/hovertip/hovertip/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/mathjax/mathjax/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/thickbox/thickbox/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/extlink/extlink/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/google_analytics/googleanalytics/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/ajax/jquery/jquery.a_form.packed/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/ajax/ajax/index.js?r"></script>
+<script type="text/javascript" src="../../sites/all/modules/ajax/plugins/thickbox/ajax_thickbox/index.js?r"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/stat505/", "mathjax": { "path": "/stat505/sites/all/libraries/mathjax/MathJax.js" }, "thickbox": { "close": "Close", "next": "Next \x3e", "prev": "\x3c Prev", "esc_key": "or Esc Key", "next_close": "Next / Close on last", "image_count": "Image !current of !total" }, "extlink": { "extTarget": "_blank", "extClass": "ext", "extSubdomains": 1, "extExclude": "", "extInclude": "(statprogram)", "extAlert": 0, "extAlertText": "This link will take you to an external web site. We are not responsible for their content.", "mailtoClass": "mailto" }, "googleanalytics": { "trackOutbound": 1, "trackMailto": 1, "trackDownload": 1, "trackDownloadExtensions": "7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip" } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+
+    // initialize tooltips in a separate thread
+    $(document).ready(function() {
+      window.setTimeout(hovertipInit, 1);
+    });
+
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga");ga("create", "UA-26036941-1", { "cookieDomain": "auto" });ga("send", "pageview");
+//--><!]]>
+</script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('iframe').each(function(){
+          var url = $(this).attr("src");
+          var char = "?";
+          if(url.indexOf("?") != -1){
+            var char = "&";
+          }
+        $(this).attr("src",url+char+"wmode=transparent");
+        });
+    });
+    </script>
+<link href="https://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+<script src="https://vjs.zencdn.net/4.12/video.js"></script>
+  <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"], ["\\(","\\)"]],processEscapes: true}});</script></head>
+
+  <body class="not-front not-logged-in page-node node-type-book one-sidebar sidebar-left page-node-143 section-node">
+    <div id="skip">
+      <a href="#content">Skip to Content</a>
+          </div>
+
+<div id="page" class="stat">
+    <!-- ______________________ HEADER _______________________ -->
+
+<div id="header">
+
+<div id="logo-title">
+
+<div id="logo-logo">
+  <a href="https://science.psu.edu/" title="Eberly College of Science" rel="home" id="logo">Eberly College of Science</a>
+</div>
+
+  <div id="site-name">
+    <a href="../.." title="Home" rel="home"><span>STAT 505</span></a>
+  </div>
+
+  <div id="site-slogan"><span>Applied Multivariate Statistical Analysis</span></div>
+
+
+</div> <!-- /logo-title -->
+
+            
+    </div> <!-- /header -->
+
+    <!-- ______________________ MAIN _______________________ -->
+
+    <div id="main" class="clearfix">
+
+      <div id="content">
+        <div id="content-inner" class="inner column center">
+
+          
+                      <div id="content-header">
+
+              <div class="breadcrumb"><a href="../..">Home</a> » <a href="../138/">Lesson 14:  Cluster Analysis</a></div>
+                              <h1 class="title">14.4 - Agglomerative Hierarchical Clustering</h1>
+              
+              
+              
+              
+              
+            </div> <!-- /#content-header -->
+          
+          <div id="content-area">
+            <div class="node node clearfix node-type-book" id="node-143">
+  <div class="node-inner">
+
+    
+    
+    
+    <div class="content">
+      <span class="print-link"><span class="print_html"><a href="../../print/book/export/html/143/" title="Display a printer-friendly version of this page." class="print-page" onclick="window.open(this.href); return false" rel="nofollow"><img src="../../sites/all/modules/print/icons/print_icon/index.gif" alt="Printer-friendly version" title="Printer-friendly version" width="16" height="16" class="print-icon print-icon-margin" />Printer-friendly version</a></span></span><p><strong>Combining Clusters in the Agglomerative Approach</strong></p>
+<p>In the agglomerative hierarchical approach, we define each data point as a cluster and combine existing clusters at each step. Here are four different methods for this approach:</p>
+<p><strong>&nbsp;</strong><strong>1. Single Linkage</strong>: In <em><span style="color: red;">single linkage</span></em>, we define the distance between two clusters as the <span style="text-decoration: underline;">minimum</span> distance between any single data point in the first cluster and any single data point in the second cluster. On the basis of this definition of distance between clusters, at each stage of the process we combine the two clusters with the smallest single linkage distance.</p>
+<p><strong>&nbsp;</strong><strong>2. Complete Linkage</strong>: In <em><span style="color: red;">complete linkage</span></em>, we define the distance between two clusters to be the <span style="text-decoration: underline;">maximum</span> distance between any single data point in the first cluster and any single data point in the second cluster. On the basis of this definition of distance between clusters, at each stage of the process we combine the two clusters that have the smallest&nbsp;complete linkage distance.</p>
+<p><strong>&nbsp;</strong><strong>3. Average Linkage</strong>: In <em><span style="color: red;">average linkage</span></em>, we define the distance between two clusters to be the <span style="text-decoration: underline;">average</span> distance between data points in the first cluster and data points in the second cluster. On the basis of this definition of distance between clusters, at each stage of the process we combine the two clusters that have the smallest&nbsp;average linkage distance.</p>
+<p><strong>4. </strong><strong>Centroid Method</strong>: In <em><span style="color: #ff0000;">centroid method</span></em>, the distance between two clusters is the distance between the two <span style="text-decoration: underline;">mean vectors</span> of the&nbsp;clusters. At each stage of the process we combine the two clusters that have the smallest centroid distance.&nbsp;</p>
+<p><strong>&nbsp;</strong><strong>5. Ward’s Method</strong>: This method does not directly define a measure of distance between two points or clusters. It is an ANOVA based approach. One-way univariate ANOVAs are done for each variable with groups defined by the clusters at that stage of the process.&nbsp; At each stage, two clusters merge that provide the smallest increase in the combined error sum of squares.&nbsp;</p>
+<p>In the following table the mathematical form of the distances are provided. The graph gives a geometric interpretation.</p>
+<p>&nbsp;<em><strong>Note</strong></em><strong>:</strong> None of these four methods is uniformly the best. In practice, it’s advisable to try several methods and then compare the results to form an overall judgment about the final formation of clusters. &nbsp;</p>
+<hr />
+<p>Notationally, define</p>
+<ul>
+<li><strong><em>X</em><sub>1</sub>, <em>X</em><sub>2</sub>, ... , <em>X<sub>k</sub></em></strong> = Observations from cluster 1</li>
+<li><strong><em>Y</em><sub>1</sub>, <em>Y</em><sub>2</sub>, ... , <em>Y<sub>l</sub></em> </strong>= Observations from cluster 2 </li>
+<li>d(<strong>x</strong>,<strong>y</strong>) = Distance between a subject with observation vector <strong>x</strong> and a subject with observation vector <strong>y</strong> </li>
+</ul>
+<h4>Linkage Methods or Measuring Association <em>d</em><sub>12</sub> Between Clusters 1 and 2</h4>
+<table style="width: 95%;" border="1" cellpadding="4" align="center">
+<tbody>
+<tr>
+<td>Single Linkage</td>
+<td>&nbsp;\(d_{12} = \displaystyle \min_{i,j}\text{ } d(\mathbf{X}_i, \mathbf{Y}_j)\)</td>
+<td>This is the distance between the closest members of the two clusters.</td>
+</tr>
+<tr>
+<td>Complete Linkage</td>
+<td>&nbsp;\(d_{12} = \displaystyle \max_{i,j}\text{ } d(\mathbf{X}_i, \mathbf{Y}_j)\)</td>
+<td>This is the distance between the&nbsp;members that are farthest apart (most dissimilar)</td>
+</tr>
+<tr>
+<td>Average Linkage</td>
+<td>&nbsp;\(d_{12} = \frac{1}{kl}\sum_{i=1}^{k}\sum_{j=1}^{l}d(\mathbf{X}_i, \mathbf{Y}_j)\)</td>
+<td>This method involves looking at the distances between all pairs and averages all of these distances. This is also called UPGMA - Unweighted Pair Group Mean Averaging.</td>
+</tr>
+<tr>
+<td><span style="color: #000000;">Centroid Method</span></td>
+<td>
+<p><span style="color: #000000;">&nbsp;\( d_{12} = d(\bar{\mathbf{x}},\bar{\mathbf{y}})\)<br /></span></p>
+</td>
+<td><span style="color: #000000;">This involves finding the mean vector location for each of the clusters and taking the distance between the two centroids.</span></td>
+</tr>
+</tbody>
+</table>
+<p>Use your mouse to rollover the linkage method types listed on the right for a visual representation of how the distances are determined for each method.</p>
+<p style="text-align: center;">
+<object width="408" height="307" data="../../sites/onlinecourses.science.psu.edu.stat505/files/lesson12/cluster_distances/index.swf" type="application/x-shockwave-flash"><param name="data" value="../../sites/onlinecourses.science.psu.edu.stat505/files/lesson12/cluster_distances/index.swf" /><param name="src" value="../../sites/onlinecourses.science.psu.edu.stat505/files/lesson12/cluster_distances/index.swf" /></object></p>
+  <div id="book-navigation-138" class="book-navigation">
+    
+        <div class="page-links clear-block">
+              <a href="../141/" class="page-previous" title="Go to previous page">‹ 14.3 - Measures of Association for Binary Variables </a>
+                    <a href="../138/" class="page-up" title="Go to parent page">up</a>
+                    <a href="../144/" class="page-next" title="Go to next page">14.5 - Agglomerative Method Example ›</a>
+          </div>
+    
+  </div>
+    </div>
+
+    
+     
+      <div class="links"> <ul class="links inline"><li class="book_printer first last"><a href="../../print/book/export/html/143/" title="Display a printer-friendly version of this page." class="print-page" onclick="window.open(this.href); return false" rel="nofollow"><img src="../../sites/all/modules/print/icons/print_icon/index.gif" alt="Printer-friendly version" title="Printer-friendly version" width="16" height="16" class="print-icon print-icon-margin" />Printer-friendly version</a></li>
+</ul></div>
+    
+  </div> <!-- /node-inner -->
+</div> <!-- /node-->          </div> <!-- /#content-area -->
+
+          
+          
+          </div>
+        </div> <!-- /content-inner /content -->
+
+        
+                  <div id="sidebar-first" class="column sidebar first">
+            <div id="sidebar-first-inner" class="inner">
+              <h1 id="menu_title">Navigation</h1>
+              <div id="block-user-1" class="block block-user block-left block-id-30 clearfix first odd">
+  <div class="block-inner">
+
+          <h3 class="title block-title">Start Here!</h3>
+    
+    <div class="content">
+      <ul class="menu"><li class="collapsed first welcome_to_stat_505-"><a href="../1/" title="Welcome to STAT 505!">Welcome to STAT 505!</a></li><li class="leaf search_course_materials"><a href="/stat505/search/" title="">Search Course Materials</a></li>
+
+
+</ul>    </div>
+
+    
+  </div> <!-- /block-inner -->
+</div> <!-- /block --><div id="block-menu-menu-lessons" class="block block-menu block-left block-id-22 clearfix even">
+  <div class="block-inner">
+
+          <h3 class="title block-title">Lessons</h3>
+    
+    <div class="content">
+      <ul class="menu"><li class="collapsed first lesson_0-_matrices_and_vectors"><a href="../2/" title="Lesson 0: Matrix Review">Lesson 0: Matrices and Vectors</a></li>
+<li class="collapsed lesson_1-_measures_of_central_tendency-_dispersion_and_association"><a href="../10/" title="Measures of Central Tendency, Variance and Association">Lesson 1: Measures of Central Tendency, Dispersion and Association</a></li>
+<li class="collapsed lesson_2-_linear_combinations_of_random_variables"><a href="../11/" title="Linear Combination of Random Variables">Lesson 2: Linear Combinations of Random Variables</a></li>
+<li class="collapsed lesson_3-_graphical_display_of_multivariate_data"><a href="../9/" title="Graphical Display of Multivariate Data">Lesson 3: Graphical Display of Multivariate Data</a></li>
+<li class="collapsed lesson_4-_multivariate_normal_distribution"><a href="../12/" title="Multivariate Normal Distribution">Lesson 4: Multivariate Normal Distribution</a></li>
+<li class="collapsed lesson_5-_sample_mean_vector_and_sample_correlation_and_related_inference_problems"><a href="../13/" title="Properties of Sample Mean and Correlation">Lesson 5: Sample Mean Vector and Sample Correlation and Related Inference Problems</a></li>
+<li class="collapsed lesson_6-_multivariate_conditional_distribution_and_partial_correlation"><a href="../14/" title="Partial Correlations">Lesson 6: Multivariate Conditional Distribution and Partial Correlation</a></li>
+<li class="collapsed lesson_7-_inferences_regarding_multivariate_population_mean"><a href="../100/" title="Lesson 11: Inferences Regarding Multivariate Population Mean">Lesson 7: Inferences Regarding Multivariate Population Mean</a></li>
+<li class="collapsed lesson_8-_multivariate_analysis_of_variance_-manova-"><a href="../159/" title="Lesson 8: Multivariate Analysis of Variance (MANOVA)">Lesson 8: Multivariate Analysis of Variance (MANOVA)</a></li>
+<li class="collapsed lesson_9-_repeated_measures_analysis"><a href="../150/" title="Lesson 9: Repeated Measures Analysis">Lesson 9: Repeated Measures Analysis</a></li>
+<li class="collapsed lesson_10-_discriminant_analysis"><a href="../89/" title="Lesson 10: Discriminant Analysis">Lesson 10: Discriminant Analysis</a></li>
+<li class="collapsed lesson_11-_principal_components_analysis_-pca-"><a href="../49/" title="Lesson 7: Principal Components Analysis (PCA)">Lesson 11: Principal Components Analysis (PCA)</a></li>
+<li class="collapsed lesson_12-_factor_analysis"><a href="../74/" title="Lesson 9: Factor Analysis">Lesson 12: Factor Analysis</a></li>
+<li class="collapsed lesson_13-_canonical_correlation_analysis"><a href="../63/" title="Lesson 8: Canonical Correlation Analysis">Lesson 13: Canonical Correlation Analysis</a></li>
+<li class="expanded last active-trail lesson_14-__cluster_analysis"><a href="../138/" title="Lesson 12:  Cluster Analysis">Lesson 14:  Cluster Analysis</a><ul class="menu"><li class="leaf first id14-1_-_example-_woodyard_hammock_data"><a href="../139/" title="Example: Woodyard Hammock Data">14.1 - Example: Woodyard Hammock Data</a></li>
+<li class="leaf id14-2_-_measures_of_association_for_continuous_variables"><a href="../140/" title="Measures of Association">14.2 - Measures of Association for Continuous Variables</a></li>
+<li class="leaf id14-3_-_measures_of_association_for_binary_variables"><a href="../141/" title="Measures of Association for Binary Variables">14.3 - Measures of Association for Binary Variables</a></li>
+<li class="leaf active-trail id14-4_-_agglomerative_hierarchical_clustering"><a href="" title="Agglomerative vs. Divisive Clustering" class="active">14.4 - Agglomerative Hierarchical Clustering</a></li>
+<li class="leaf id14-5_-_agglomerative_method_example"><a href="../144/" title="The Agglomerative Method in SAS">14.5 - Agglomerative Method Example</a></li>
+<li class="leaf id14-6_-_cluster_description"><a href="../145/" title="Cluster Description">14.6 - Cluster Description</a></li>
+<li class="leaf id14-7_-_ward-s_method"><a href="../146/" title="Ward’s Method">14.7 - Ward’s Method</a></li>
+<li class="leaf id14-8_-_k-means_procedure"><a href="../147/" title="K-Means Procedure">14.8 - K-Means Procedure</a></li>
+<li class="leaf id14-9_-_defining_initial_clusters"><a href="../148/" title="Defining Initial Clusters">14.9 - Defining Initial Clusters</a></li>
+<li class="leaf last id14-10_-_summary"><a href="../149/" title="Summary">14.10 - Summary</a></li>
+</ul></li>
+</ul>    </div>
+
+    
+  </div> <!-- /block-inner -->
+</div> <!-- /block --><div id="block-menu-menu-resources" class="block block-menu block-left block-id-23 clearfix last odd">
+  <div class="block-inner">
+
+          <h3 class="title block-title">Resources</h3>
+    
+    <div class="content">
+      <ul class="menu"><li class="leaf first sas_tour"><a href="../25/" title="SAS Tour">SAS Tour</a></li>
+<li class="leaf sas_interactive_data_analysis"><a href="../26/" title="SAS Interactive Data Analysis">SAS Interactive Data Analysis</a></li>
+<li class="leaf a_quick_introduction_to_minitab"><a href="../60/" title="A Quick Introduction to Minitab">A Quick Introduction to Minitab</a></li>
+<li class="leaf last sas_programs"><a href="../175/" title="SAS Programs">SAS Programs</a></li>
+</ul>    </div>
+
+    
+  </div> <!-- /block-inner -->
+</div> <!-- /block -->              <div id="sciencemark">
+                <a href="https://science.psu.edu/" title="Penn State Science">
+                  <img src="../../sites/all/themes/online_ed2/images/pennstatescience250/index.png" alt="Penn State Science" />
+                </a>
+              </div>
+              <div id="readytoenroll">
+                <a href="https://www.worldcampus.psu.edu/course-catalog/search-courses" title="Course Catalog">
+                  <img src="../../sites/all/themes/online_ed2/images/readytoenroll250/index.png" alt="Ready to Enroll?" />
+                </a>
+              </div>
+            </div>
+          </div>
+         <!-- /sidebar-left -->
+
+         <!-- /sidebar-second -->
+
+      </div> <!-- /main -->
+
+      <!-- ______________________ FOOTER _______________________ -->
+
+        <div id="footer">
+
+          <p>Copyright &#169; 2018 <a href="https://www.psu.edu/">The Pennsylvania State University</a><br />
+          <a href="https://www.psu.edu/ur/legal.html">Privacy and Legal Statements</a><br />
+          Contact the <a href="mailto:jmh491@psu.edu">Department of Statistics Online Programs</a>
+          </p>
+
+                            </div> <!-- /footer -->
+
+    </div> <!-- /page -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML" async></script></body>
+
+
+</html>
